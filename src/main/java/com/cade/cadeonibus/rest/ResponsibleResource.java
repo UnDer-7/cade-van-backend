@@ -1,6 +1,5 @@
 package com.cade.cadeonibus.rest;
 
-import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
 import com.cade.cadeonibus.service.ResponsibleService;
 import lombok.AllArgsConstructor;

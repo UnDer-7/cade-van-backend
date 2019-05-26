@@ -4,7 +4,6 @@ import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
 import com.cade.cadeonibus.dto.mapper.ResponsibleMapper;
 import com.cade.cadeonibus.repository.ResponsibleRepository;
-import com.cade.cadeonibus.rest.ResponsibleResource;
 import com.cade.cadeonibus.service.ResponsibleService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;

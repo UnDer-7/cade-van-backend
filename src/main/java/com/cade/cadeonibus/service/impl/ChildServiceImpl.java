@@ -1,18 +1,13 @@
 package com.cade.cadeonibus.service.impl;
 
 import com.cade.cadeonibus.domain.Child;
-import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.dto.ChildDTO;
 import com.cade.cadeonibus.dto.mapper.ChildMapper;
 import com.cade.cadeonibus.repository.ChildRepository;
-import com.cade.cadeonibus.repository.ResponsibleRepository;
-import com.cade.cadeonibus.rest.ResponsibleResource;
 import com.cade.cadeonibus.service.ChildService;
-import com.cade.cadeonibus.service.ResponsibleService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
