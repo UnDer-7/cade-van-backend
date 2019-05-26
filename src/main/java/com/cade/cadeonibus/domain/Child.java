@@ -5,7 +5,10 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper=true)
@@ -24,4 +27,8 @@ public class Child extends BaseAbstract{
 
   @Column(name = "period")
   private String period;
+
+  @ManyToOne
+  @JoinColumn(name = "responsible_id")
+  private Responsible responsible;
 }

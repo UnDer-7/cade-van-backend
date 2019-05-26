@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: Mateus Gomes
+      changes:
+        - addColumn:
+            tableName: CHILD
+            schemaName: public
+            columns:
+              - column:
+                  name: responsible_id
+                  type: int
+        - addForeignKeyConstraint:
+            baseColumnNames: responsible_id
+            baseTableName: CHILD
+            constraintName: fk_child_responsible
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            referencedColumnNames: id
+            referencedTableName: child
