@@ -6,6 +6,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  liquibase:
+    enabled: true
+    change-log: classpath:/liquibase/changeLog.master.yml
 server:
   port: 8080
   protocol: https
