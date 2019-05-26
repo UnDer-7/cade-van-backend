@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: Cadê a Van
+  jpa:
+    hibernate:
+      ddl-auto: none
+server:
+  port: 8080
+  protocol: https

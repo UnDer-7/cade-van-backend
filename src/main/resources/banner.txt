@@ -1,0 +1,9 @@
+ ${AnsiColor.BLACK}
+ ██████╗ █████╗ ██████╗ ███████╗     █████╗     ${AnsiColor.RED}██╗   ██╗ █████╗ ███╗   ██╗${AnsiColor.BLACK}
+██╔════╝██╔══██╗██╔══██╗██╔════╝    ██╔══██╗    ${AnsiColor.RED}██║   ██║██╔══██╗████╗  ██║${AnsiColor.BLACK}
+██║     ███████║██║  ██║█████╗      ███████║    ${AnsiColor.RED}██║   ██║███████║██╔██╗ ██║${AnsiColor.BLACK}
+██║     ██╔══██║██║  ██║██╔══╝      ██╔══██║    ${AnsiColor.RED}╚██╗ ██╔╝██╔══██║██║╚██╗██║${AnsiColor.BLACK}
+╚██████╗██║  ██║██████╔╝███████╗    ██║  ██║     ${AnsiColor.RED}╚████╔╝ ██║  ██║██║ ╚████║${AnsiColor.BLACK}
+ ╚═════╝╚═╝  ╚═╝╚═════╝ ╚══════╝    ╚═╝  ╚═╝      ${AnsiColor.RED}╚═══╝  ╚═╝  ╚═╝╚═╝  ╚═══╝${AnsiColor.BLACK}
+${AnsiColor.GREEN}::${AnsiColor.BLUE} Java Version - ${AnsiColor.RED} 1.12.0${AnsiColor.BLACK}
+${AnsiColor.GREEN}::${AnsiColor.BLUE} Spring Boot Version - ${AnsiColor.RED}${spring-boot.version}${AnsiColor.BLACK}

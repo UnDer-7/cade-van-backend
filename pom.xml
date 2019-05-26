@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.cade</groupId>
-    <artifactId>cade-onibus</artifactId>
+    <artifactId>cade-van</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>cade-onibus</name>
+    <name>cade-van</name>
     <description>Trabalho de Conclusão de Curso</description>
 
     <properties>
