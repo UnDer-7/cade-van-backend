@@ -3,19 +3,23 @@ package com.cade.cadeonibus.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "DRIVER")
-public class Driver extends PersonAbstract {
-  @Column(name = "nickname")
-  private String nickname;
+public class Driver extends BaseAbstract {
+  @Column(name = "name")
+  private String name;
+
+  @Column(name = "phone")
+  private String phone;
 
   @Column(name = "cpf")
   private String cpf;
+
+  @OneToOne
+  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  private User user;
 }
