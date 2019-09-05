@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: Lucas Veiga
+      changes:
+        - createTable:
+            tableName: perfis
+            columns:
+              - column:
+                  name: user_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: perfis
+                  type: varchar(20)
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: perfis
+            constraintName: fk_perfis_user
+            referencedColumnNames: id
+            referencedTableName: user

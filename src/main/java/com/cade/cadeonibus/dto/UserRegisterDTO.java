@@ -1,12 +1,19 @@
 package com.cade.cadeonibus.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 public class UserRegisterDTO {
+  @NotEmpty
   private String login;
+  @NotEmpty
   private String password;
+  @NotEmpty
   private String name;
+  @NotEmpty
   private String phone;
   private String cpf;
   private String nickname;
+  @NotEmpty
   private String type;
 
   public String getLogin() {

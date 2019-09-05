@@ -1,9 +1,16 @@
 package com.cade.cadeonibus.dto;
 
+import com.cade.cadeonibus.enums.Perfil;
+
+import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
+
 public class UserDTO extends BaseAbstractDTO {
 
   private String login;
   private String passwordHash;
+  private Set<Perfil> perfis = new HashSet<>();
 
   public UserDTO() {
   }
@@ -11,6 +18,8 @@ public class UserDTO extends BaseAbstractDTO {
   public UserDTO(UserRegisterDTO userRegisterDTO, String passwordHash) {
     this.login = userRegisterDTO.getLogin();
     this.passwordHash = passwordHash;
+    if (userRegisterDTO.getType().equals("driver")) setPerfis(new HashSet<>(EnumSet.of(Perfil.DRIVER)));
+    if (userRegisterDTO.getType().equals("responsible")) setPerfis(new HashSet<>(EnumSet.of(Perfil.RESPONSIBLE)));
   }
 
   public String getLogin() {
@@ -29,11 +38,20 @@ public class UserDTO extends BaseAbstractDTO {
     this.passwordHash = passwordHash;
   }
 
+  public Set<Perfil> getPerfis() {
+    return perfis;
+  }
+
+  public void setPerfis(Set<Perfil> perfis) {
+    this.perfis = perfis;
+  }
+
   @Override
   public String toString() {
-    return "User{" +
+    return "UserDTO{" +
       "login='" + login + '\'' +
       ", passwordHash='" + passwordHash + '\'' +
+      ", perfis=" + perfis +
       '}';
   }
 }

@@ -1,10 +1,11 @@
 package com.cade.cadeonibus.domain;
 
+import com.cade.cadeonibus.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "\"User\"")
@@ -16,6 +17,10 @@ public class User extends BaseAbstract {
   @JsonIgnore
   @Column(name = "password_hash")
   private String passwordHash;
+
+  @ElementCollection(fetch = FetchType.EAGER)
+  @CollectionTable(name = "perfis")
+  private Set<Perfil> perfis = new HashSet<>();
 
   public String getLogin() {
     return login;
@@ -31,6 +36,14 @@ public class User extends BaseAbstract {
 
   public void setPasswordHash(String passwordHash) {
     this.passwordHash = passwordHash;
+  }
+
+  public Set<Perfil> getPerfis() {
+    return perfis;
+  }
+
+  public void setPerfis(Set<Perfil> perfis) {
+    this.perfis = perfis;
   }
 
   @Override
