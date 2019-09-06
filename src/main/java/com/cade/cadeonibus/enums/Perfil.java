@@ -1,32 +1,21 @@
 package com.cade.cadeonibus.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@AllArgsConstructor
 public enum Perfil {
   DRIVER(1, "Driver"),
-  RESPONSIBLE(2, "RESPONSIBLE");
+  RESPONSIBLE(2, "Responsible");
 
+  @Getter
+  @Setter
   private int cod;
+
+  @Getter
+  @Setter
   private String descricao;
-
-  Perfil(int cod, String descricao) {
-    this.cod = cod;
-    this.descricao = descricao;
-  }
-
-  public int getCod() {
-    return cod;
-  }
-
-  public void setCod(int cod) {
-    this.cod = cod;
-  }
-
-  public String getDescricao() {
-    return descricao;
-  }
-
-  public void setDescricao(String descricao) {
-    this.descricao = descricao;
-  }
 
   public static Perfil toEnum(Integer cod) {
     if (cod == null) return null;

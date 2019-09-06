@@ -9,9 +9,9 @@ spring:
       enabled: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/CADE_VAN
-    password: docker
-    username: docker
+    url: jdbc:postgresql://localhost:5432/cade_van
+    username: postgres
+    password: root
   jpa:
     database: postgresql
     show-sql: true
