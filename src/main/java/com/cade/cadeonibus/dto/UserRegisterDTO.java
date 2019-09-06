@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class UserRegisterDTO {
   @NotEmpty
-  private String login;
+  private String email;
   @NotEmpty
   private String password;
   @NotEmpty

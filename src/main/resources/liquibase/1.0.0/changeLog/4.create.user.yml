@@ -18,6 +18,7 @@ databaseChangeLog:
                   type: varchar(100)
                   constraints:
                     nullable: false
+                    unique: true
               - column:
                   name: password_hash
                   type: varchar(100)

@@ -11,4 +11,13 @@ public interface UserMapper extends EntityMapper<UserDTO, User> {
 
   @Override
   User toEntity(UserDTO dto);
+
+  default User fromId(Long id) {
+    if (id == null) {
+      return null;
+    }
+    User user = new User();
+    user.setId(id);
+    return user;
+  }
 }

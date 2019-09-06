@@ -16,7 +16,7 @@ public class UserDTO extends BaseAbstractDTO {
   }
 
   public UserDTO(UserRegisterDTO userRegisterDTO, String passwordHash) {
-    this.login = userRegisterDTO.getLogin();
+    this.login = userRegisterDTO.getEmail();
     this.passwordHash = passwordHash;
     if (userRegisterDTO.getType().equals("driver")) setPerfis(new HashSet<>(EnumSet.of(Perfil.DRIVER)));
     if (userRegisterDTO.getType().equals("responsible")) setPerfis(new HashSet<>(EnumSet.of(Perfil.RESPONSIBLE)));

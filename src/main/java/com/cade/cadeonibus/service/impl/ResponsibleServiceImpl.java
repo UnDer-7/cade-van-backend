@@ -23,7 +23,7 @@ public class ResponsibleServiceImpl implements ResponsibleService {
   private final ResponsibleMapper responsibleMapper;
 
   @Override
-  public ResponsibleDTO getResponsible(Long id) {
+  public ResponsibleDTO getOne(Long id) {
     log.debug("Request to get Responsible -> ID: {}", id);
 
     Responsible responsible = responsibleRepository.getOne(id);
@@ -31,7 +31,7 @@ public class ResponsibleServiceImpl implements ResponsibleService {
   }
 
   @Override
-  public ResponsibleDTO saveResponsible(ResponsibleDTO dto) {
+  public ResponsibleDTO save(ResponsibleDTO dto) {
     log.debug("Request to save Responsible -> {}", dto);
 
     Responsible responsible = responsibleMapper.toEntity(dto);

@@ -13,6 +13,12 @@ public class Driver extends BaseAbstract {
   @Column(name = "name")
   private String name;
 
+  @Column(name = "nickname")
+  private String nickname;
+
+  @Column(name = "email")
+  private String email;
+
   @Column(name = "phone")
   private String phone;
 
