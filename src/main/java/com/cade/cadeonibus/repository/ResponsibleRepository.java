@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResponsibleRepository extends JpaRepository<Responsible, Long> {
+  Responsible findByEmail(String email);
 }

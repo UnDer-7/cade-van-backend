@@ -38,4 +38,10 @@ public class ResponsibleServiceImpl implements ResponsibleService {
     Responsible saved = responsibleRepository.save(responsible);
     return responsibleMapper.toDTO(saved);
   }
+
+  @Override
+  public ResponsibleDTO findByEmail(String email) {
+    Responsible responsible = responsibleRepository.findByEmail(email);
+    return responsibleMapper.toDTO(responsible);
+  }
 }

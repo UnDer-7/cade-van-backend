@@ -7,12 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -28,15 +25,23 @@ public class ChildResource {
   public ResponseEntity<ChildDTO> getChild(@PathVariable Long id) {
     log.debug("REST request to get child -> ID: {}", id);
 
-    ChildDTO dto = childService.getChild(id);
+    ChildDTO dto = childService.getOne(id);
     return utilResponses.successResponse(dto);
   }
 
-  @PostMapping
-  public ResponseEntity<ChildDTO> saveResponsible(@RequestBody ChildDTO child) {
-    log.debug("REST request to save Responsible -> {}", child);
+  @GetMapping()
+  public ResponseEntity<List<ChildDTO>> findAll() {
+    log.debug("REST request to get all children");
 
-    ChildDTO dto = childService.saveChild(child);
+    List<ChildDTO> childList = childService.findAll();
+    return new ResponseEntity<>(childList, HttpStatus.OK);
+  }
+
+  @PostMapping
+  public ResponseEntity<ChildDTO> save(@RequestBody ChildDTO child) {
+    log.debug("REST request to save Child -> {}", child);
+
+    ChildDTO dto = childService.save(child);
     return utilResponses.successResponse(HttpStatus.CREATED, dto);
   }
 }

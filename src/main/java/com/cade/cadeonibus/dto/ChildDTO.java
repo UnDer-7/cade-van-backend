@@ -12,5 +12,6 @@ public class ChildDTO extends BaseAbstract {
   private String school;
   private Integer age;
   private String period;
-  private Responsible responsible;
+  private Long responsibleId;
+  private Long driverId;
 }

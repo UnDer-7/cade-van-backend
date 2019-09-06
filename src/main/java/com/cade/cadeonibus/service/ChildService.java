@@ -2,7 +2,10 @@ package com.cade.cadeonibus.service;
 
 import com.cade.cadeonibus.dto.ChildDTO;
 
+import java.util.List;
+
 public interface ChildService {
-  ChildDTO getChild(Long id);
-  ChildDTO saveChild(ChildDTO child);
+  List<ChildDTO> findAll();
+  ChildDTO getOne(Long id);
+  ChildDTO save(ChildDTO child);
 }
