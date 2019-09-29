@@ -24,8 +24,8 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: age
-                  type: int
+                  name: birth_date
+                  type: date
                   constraints:
                     nullable: false
               - column:
