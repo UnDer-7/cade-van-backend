@@ -37,6 +37,6 @@ databaseChangeLog:
         - addForeignKeyConstraint:
             baseColumnNames: user_id
             baseTableName: responsible
-            constraintName: fk_responsible_user
+            constraintName: fk_responsible_users
             referencedColumnNames: id
-            referencedTableName: user
+            referencedTableName: users

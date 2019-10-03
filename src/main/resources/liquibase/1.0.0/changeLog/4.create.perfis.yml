@@ -19,6 +19,6 @@ databaseChangeLog:
         - addForeignKeyConstraint:
             baseColumnNames: user_id
             baseTableName: perfis
-            constraintName: fk_perfis_user
+            constraintName: fk_perfis_users
             referencedColumnNames: id
-            referencedTableName: user
+            referencedTableName: users

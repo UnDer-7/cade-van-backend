@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Data
 @EqualsAndHashCode(callSuper=true)
 @Entity
-@Table(name = "RESPONSIBLE")
+@Table(name = "responsible")
 public class Responsible extends PersonAbstract{
 
   @OneToOne

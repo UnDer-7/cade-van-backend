@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper=true)
 @Entity
-@Table(name = "CHILD")
+@Table(name = "child")
 public class Child extends BaseAbstract{
 
   @Column(name = "name")

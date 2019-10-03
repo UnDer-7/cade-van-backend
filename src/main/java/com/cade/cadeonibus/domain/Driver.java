@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "DRIVER")
+@Table(name = "driver")
 public class Driver extends BaseAbstract {
   @Column(name = "name")
   private String name;

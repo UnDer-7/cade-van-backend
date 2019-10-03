@@ -51,6 +51,6 @@ databaseChangeLog:
         - addForeignKeyConstraint:
             baseColumnNames: user_id
             baseTableName: driver
-            constraintName: fk_driver_user
+            constraintName: fk_driver_users
             referencedColumnNames: id
-            referencedTableName: user
+            referencedTableName: users
