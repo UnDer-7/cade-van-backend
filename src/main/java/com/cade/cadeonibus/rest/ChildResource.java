@@ -39,7 +39,7 @@ public class ChildResource {
 
   @PostMapping
   public ResponseEntity<ChildDTO> save(@RequestBody ChildDTO child) {
-    log.debug("REST request to save Child -> {}", child);
+    log.info("REST request to save Child -> {}", child);
 
     ChildDTO dto = childService.save(child);
     return utilResponses.successResponse(HttpStatus.CREATED, dto);

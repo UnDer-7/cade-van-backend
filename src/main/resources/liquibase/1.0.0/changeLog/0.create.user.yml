@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 4
+      id: 0
       author: Lucas Veiga
       changes:
         - createTable:

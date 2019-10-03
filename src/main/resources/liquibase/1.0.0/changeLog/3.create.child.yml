@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 5
-      author: Lucas Veiga
+      id: 3
+      author: Mateus Gomes
       changes:
         - createTable:
-            tableName: driver
+            tableName: child
             columns:
               - column:
                   name: id
@@ -19,33 +19,39 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: nickname
+                  name: school
                   type: varchar(100)
                   constraints:
                     nullable: false
               - column:
-                  name: email
+                  name: birth_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: period
                   type: varchar(100)
                   constraints:
                     nullable: false
-              - column:
-                  name: phone
-                  type: varchar(100)
+              - colum:
+                  name: responsible_id
+                  type: int
                   constraints:
                     nullable: false
-              - column:
-                  name: cpf
-                  type: varchar(11)
-                  constraints:
-                    nullable: false
-              - column:
-                  name: user_id
+              - colum:
+                  name: driver_id
                   type: int
                   constraints:
                     nullable: false
         - addForeignKeyConstraint:
-            baseColumnNames: user_id
-            baseTableName: driver
-            constraintName: fk_driver_user
+            baseColumnNames: responsible_id
+            baseTableName: child
+            constraintName: fk_child_responsible
             referencedColumnNames: id
-            referencedTableName: user
+            referencedTableName: responsible
+        - addForeignKeyConstraint:
+            baseColumnNames: driver_id
+            baseTableName: child
+            constraintName: fk_child_driver
+            referencedColumnNames: id
+            referencedTableName: driver

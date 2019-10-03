@@ -6,10 +6,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UtilResponses<E> {
-  public ResponseEntity<E> successResponse(HttpStatus status, E body) {
+  ResponseEntity<E> successResponse(HttpStatus status, E body) {
     return ResponseEntity.status(status).body(body);
   }
-  public ResponseEntity<E> successResponse(E body) {
+
+  ResponseEntity<E> successResponse(E body) {
     return ResponseEntity.status(HttpStatus.OK).body(body);
   }
 }

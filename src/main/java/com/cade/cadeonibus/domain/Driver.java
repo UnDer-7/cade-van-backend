@@ -25,6 +25,9 @@ public class Driver extends BaseAbstract {
   @Column(name = "cpf")
   private String cpf;
 
+  @Column(name = "code")
+  private String code;
+
   @OneToOne
   @JoinColumn(name = "user_id", referencedColumnName = "id")
   private User user;

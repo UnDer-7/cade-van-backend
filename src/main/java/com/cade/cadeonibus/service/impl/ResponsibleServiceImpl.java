@@ -23,10 +23,18 @@ public class ResponsibleServiceImpl implements ResponsibleService {
   private final ResponsibleMapper responsibleMapper;
 
   @Override
-  public ResponsibleDTO getOne(Long id) {
+  public ResponsibleDTO getOne(final Long id) {
     log.debug("Request to get Responsible -> ID: {}", id);
 
     Responsible responsible = responsibleRepository.getOne(id);
+    return responsibleMapper.toDTO(responsible);
+  }
+
+  @Override
+  public ResponsibleDTO getOne(final String email) {
+    log.debug("Request to get Responsible -> Email: {}", email);
+
+    Responsible responsible = responsibleRepository.findByEmail(email);
     return responsibleMapper.toDTO(responsible);
   }
 

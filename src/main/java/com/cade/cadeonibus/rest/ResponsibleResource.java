@@ -27,14 +27,21 @@ public class ResponsibleResource {
 
   @GetMapping("/{id}")
   public ResponseEntity<ResponsibleDTO> getResponsible(@PathVariable Long id) {
-    log.debug("{} get Responsible -> {}", DEFAULT_LOG_MESSAGE, id);
+    log.info("{} get Responsible -> {}", DEFAULT_LOG_MESSAGE, id);
     ResponsibleDTO dto = responsibleService.getOne(id);
+    return utilResponses.successResponse(dto);
+  }
+
+  @GetMapping("/email/{email}")
+  public ResponseEntity<ResponsibleDTO> getResponsible(@PathVariable final String email) {
+    log.info("{} get Responsible -> {}", DEFAULT_LOG_MESSAGE, email);
+    ResponsibleDTO dto = responsibleService.getOne(email);
     return utilResponses.successResponse(dto);
   }
 
   @PostMapping
   public ResponseEntity<ResponsibleDTO> saveResponsible(@RequestBody ResponsibleDTO dto) {
-    log.debug("{} save Responsible -> {}", DEFAULT_LOG_MESSAGE, dto);
+    log.info("{} save Responsible -> {}", DEFAULT_LOG_MESSAGE, dto);
 
     ResponsibleDTO saved = responsibleService.save(dto);
     return utilResponses.successResponse(HttpStatus.CREATED, saved);

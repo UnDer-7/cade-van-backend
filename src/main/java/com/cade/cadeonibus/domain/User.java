@@ -12,7 +12,7 @@ import java.util.Set;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name = "\"User\"")
+@Table(name = "User")
 public class User extends BaseAbstract {
 
   @Column(name = "login")
