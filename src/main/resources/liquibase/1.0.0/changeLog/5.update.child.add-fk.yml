@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: Lucas Veiga
+      changes:
+        - addColumn:
+            tableName: child
+            schemaName: public
+            columns:
+              - column:
+                  name: driver_id
+                  type: int
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseColumnNames: driver_id
+            baseTableName: child
+            constraintName: fk_child_driver
+            referencedColumnNames: id
+            referencedTableName: driver
+        - addColumn:
+            tableName: child
+            schemaName: public
+            columns:
+              - column:
+                  name: responsible_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseColumnNames: responsible_id
+                  baseTableName: child
+                  constraintName: fk_child_responsible
+                  referencedColumnNames: id
+                  referencedTableName: responsible

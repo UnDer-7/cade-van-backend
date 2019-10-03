@@ -33,25 +33,3 @@ databaseChangeLog:
                   type: varchar(100)
                   constraints:
                     nullable: false
-              - colum:
-                  name: responsible_id
-                  type: int
-                  constraints:
-                    nullable: false
-              - colum:
-                  name: driver_id
-                  type: int
-                  constraints:
-                    nullable: false
-        - addForeignKeyConstraint:
-            baseColumnNames: responsible_id
-            baseTableName: child
-            constraintName: fk_child_responsible
-            referencedColumnNames: id
-            referencedTableName: responsible
-        - addForeignKeyConstraint:
-            baseColumnNames: driver_id
-            baseTableName: child
-            constraintName: fk_child_driver
-            referencedColumnNames: id
-            referencedTableName: driver
