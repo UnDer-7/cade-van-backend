@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.security.NoSuchAlgorithmException;
 
 @Service
 @Transactional
@@ -55,7 +56,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void register(UserRegisterDTO userRegisterDTO) {
+  public void register(UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException {
     UserDTO userDTO = new UserDTO(userRegisterDTO, passwordEncoder.encode(userRegisterDTO.getPassword()));
     userDTO = save(userDTO);
 
