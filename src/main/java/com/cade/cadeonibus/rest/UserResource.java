@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping("/api")
@@ -20,7 +21,7 @@ public class UserResource {
 
   @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
-  public void registerAccount(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
+  public void registerAccount(@Valid @RequestBody UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException {
     log.info("Rest request to register user : {}", userRegisterDTO);
     userService.register(userRegisterDTO);
   }

@@ -3,6 +3,8 @@ package com.cade.cadeonibus.service;
 import com.cade.cadeonibus.dto.UserDTO;
 import com.cade.cadeonibus.dto.UserRegisterDTO;
 
+import java.security.NoSuchAlgorithmException;
+
 public interface UserService {
   UserDTO findByLogin(String login);
 
@@ -10,5 +12,5 @@ public interface UserService {
 
   UserDTO save(UserDTO userDTO);
 
-  void register(UserRegisterDTO userRegisterDTO);
+  void register(UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException;
 }
