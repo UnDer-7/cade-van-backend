@@ -12,4 +12,6 @@ public interface ChildRepository extends JpaRepository<Child, Long> {
   List<Child> findAllByDriverEmail(String email);
 
   List<Child> findAllByResponsibleEmail(String email);
+
+  List<Child> findAllByResponsibleId(Long id);
 }
