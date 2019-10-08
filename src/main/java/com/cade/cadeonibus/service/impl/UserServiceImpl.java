@@ -47,8 +47,11 @@ public class UserServiceImpl implements UserService {
       return new UserResponseDTO(dto);
     }
 
-    final ResponsibleDTO dto = responsibleService.findByEmail(user.getLogin());
-    return new UserResponseDTO(dto);
+    if (user.getPerfis().contains(Perfil.DRIVER)) {
+      final DriverDTO dto = driverService.findByEmail(user.getLogin());
+      return new UserResponseDTO(dto);
+    }
+    throw new Exception("Usuario com Perfil: " + user.getPerfis() + " nao encontrado");
   }
 
   public UserResponseDTO findUser() throws Exception {
