@@ -36,12 +36,19 @@ public class UserServiceImpl implements UserService {
   private final UserMapper userMapper;
 
   @Override
-  public UserDTO findByLogin(String login) {
-    return userMapper.toDTO(
-      userRepository.findByLogin(login)
-        .orElseThrow(() -> new UsernameNotFoundException("User with email " + login + " was not found in the database")
-        )
-    );
+  public UserResponseDTO findByLogin(String login) throws Exception {
+    final User user = userRepository.findByLogin(login).orElse(null);
+    if (user == null) {
+      throw new Exception("Usuario com E-mail: " + login + " nao encontrado");
+    }
+
+    if (user.getPerfis().contains(Perfil.RESPONSIBLE)) {
+      final ResponsibleDTO dto = responsibleService.findByEmail(user.getLogin());
+      return new UserResponseDTO(dto);
+    }
+
+    final ResponsibleDTO dto = responsibleService.findByEmail(user.getLogin());
+    return new UserResponseDTO(dto);
   }
 
   public UserResponseDTO findUser() throws Exception {
@@ -71,7 +78,7 @@ public class UserServiceImpl implements UserService {
     return userMapper.toDTO(
       userRepository.findById(id)
         .orElseThrow(() -> new UsernameNotFoundException("User with id " + id + " was not found in the database"))
-      );
+    );
   }
 
   @Override

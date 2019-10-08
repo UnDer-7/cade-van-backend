@@ -4,7 +4,7 @@ import com.cade.cadeonibus.domain.Child;
 import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.dto.ChildDTO;
-import com.cade.cadeonibus.dto.UserDTO;
+import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.dto.mapper.ChildMapper;
 import com.cade.cadeonibus.enums.Perfil;
 import com.cade.cadeonibus.repository.ChildRepository;
@@ -34,17 +34,21 @@ public class ChildServiceImpl implements ChildService {
   private final UserService userService;
 
   @Override
-  public List<ChildDTO> findAll() {
+  public List<ChildDTO> findAll() throws Exception {
     log.debug("Request to get all children");
 
     final String login = SecurityUtils.getCurrentUserLogin().orElse(null);
-    final UserDTO user = userService.findByLogin(login);
+    if (login == null) {
+      throw new Exception("User logado nao encontrado");
+    }
 
-    if (user.getPerfis().contains(Perfil.DRIVER)) {
-      final List<Child> children = childRepository.findAllByDriverEmail(user.getLogin());
+    final UserResponseDTO user = userService.findByLogin(login);
+
+    if (user.getPerfil() == Perfil.DRIVER) {
+      final List<Child> children = childRepository.findAllByDriverEmail(user.getEmail());
       return childMapper.toDTO(children);
     }
-    final List<Child> children = childRepository.findAllByResponsibleEmail(user.getLogin());
+    final List<Child> children = childRepository.findAllByResponsibleEmail(user.getEmail());
     return childMapper.toDTO(children);
   }
 

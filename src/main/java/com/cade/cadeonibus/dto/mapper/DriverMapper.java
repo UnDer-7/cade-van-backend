@@ -2,7 +2,6 @@ package com.cade.cadeonibus.dto.mapper;
 
 import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.dto.DriverDTO;
-import com.cade.cadeonibus.service.UserService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
