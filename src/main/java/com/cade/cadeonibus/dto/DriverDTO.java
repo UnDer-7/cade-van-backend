@@ -8,6 +8,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Data
 public class DriverDTO {
+  private Long id;
   private String name;
   private String nickname;
   private String email;

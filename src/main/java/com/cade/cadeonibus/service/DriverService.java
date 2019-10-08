@@ -8,4 +8,6 @@ public interface DriverService {
   DriverDTO save(DriverDTO driverDTO);
 
   List<DriverDTO> findAll();
+
+  DriverDTO findByEmail(final String email);
 }

@@ -20,10 +20,13 @@ import java.util.stream.Collectors;
 @Transactional
 @AllArgsConstructor
 public class DriverServiceImpl implements DriverService {
-  private final DriverMapper driverMapper;
+
   private final DriverRepository driverRepository;
   private final ChildRepository childRepository;
+
   private final ResponsibleService responsibleService;
+
+  private final DriverMapper driverMapper;
 
   @Override
   public DriverDTO save(DriverDTO driverDTO) {
@@ -40,5 +43,11 @@ public class DriverServiceImpl implements DriverService {
       .stream().map(child -> child.getDriver().getId()).collect(Collectors.toList());
     List<Driver> drivers = driverRepository.findAllByIdIn(driverIds);
     return driverMapper.toDTO(drivers);
+  }
+
+  @Override
+  public DriverDTO findByEmail(final String email) {
+    final Driver driver = driverRepository.findByEmail(email);
+    return driverMapper.toDTO(driver);
   }
 }

@@ -8,6 +8,13 @@ import java.util.Optional;
 
 public final class SecurityUtils {
 
+  private SecurityUtils() {}
+
+  /**
+   * <h1>getCurrentUserLogin</h1>
+   * <h3>Pega o usuario logado</h3>
+   * @return E-mail do usuario logado
+   */
   public static Optional<String> getCurrentUserLogin() {
     SecurityContext securityContext = SecurityContextHolder.getContext();
     return Optional.ofNullable(securityContext.getAuthentication())

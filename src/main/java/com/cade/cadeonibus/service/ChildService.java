@@ -7,5 +7,5 @@ import java.util.List;
 public interface ChildService {
   List<ChildDTO> findAll();
   ChildDTO getOne(Long id);
-  ChildDTO save(ChildDTO child);
+  void save(ChildDTO child);
 }

@@ -14,7 +14,7 @@ spring:
     password: root
   jpa:
     database: postgresql
-    show-sql: true
+    show-sql: false
 server:
   port: 8080
   protocol: http

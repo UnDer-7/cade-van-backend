@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=true)
 public class ResponsibleDTO extends BaseAbstractDTO {
+  private Long id;
   private String name;
   private String email;
   private String phone;

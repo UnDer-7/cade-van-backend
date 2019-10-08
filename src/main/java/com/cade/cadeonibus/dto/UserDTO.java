@@ -15,11 +15,17 @@ public class UserDTO extends BaseAbstractDTO {
   public UserDTO() {
   }
 
-  public UserDTO(UserRegisterDTO userRegisterDTO, String passwordHash) {
+  public UserDTO(UserRegisterDTO userRegisterDTO, String passwordHash) throws Exception {
     this.login = userRegisterDTO.getEmail();
     this.passwordHash = passwordHash;
-    if (userRegisterDTO.getType().equals("driver")) setPerfis(new HashSet<>(EnumSet.of(Perfil.DRIVER)));
-    if (userRegisterDTO.getType().equals("responsible")) setPerfis(new HashSet<>(EnumSet.of(Perfil.RESPONSIBLE)));
+
+    if (userRegisterDTO.getType() == Perfil.DRIVER) {
+      setPerfis(new HashSet<>(EnumSet.of(Perfil.DRIVER)));
+    } else if (userRegisterDTO.getType() == Perfil.RESPONSIBLE) {
+      setPerfis(new HashSet<>(EnumSet.of(Perfil.RESPONSIBLE)));
+    } else {
+      throw new Exception("Nenhum perfil encontrado");
+    }
   }
 
   public String getLogin() {

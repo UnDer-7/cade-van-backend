@@ -5,8 +5,11 @@ import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
 import com.cade.cadeonibus.dto.UserDTO;
 import com.cade.cadeonibus.dto.UserRegisterDTO;
+import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.dto.mapper.UserMapper;
+import com.cade.cadeonibus.enums.Perfil;
 import com.cade.cadeonibus.repository.UserRepository;
+import com.cade.cadeonibus.security.SecurityUtils;
 import com.cade.cadeonibus.service.DriverService;
 import com.cade.cadeonibus.service.ResponsibleService;
 import com.cade.cadeonibus.service.UserService;
@@ -18,18 +21,19 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.security.NoSuchAlgorithmException;
 
 @Service
 @Transactional
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
   private final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
-  private final UserRepository userRepository;
-  private final UserMapper userMapper;
   private final BCryptPasswordEncoder passwordEncoder;
+
+  private final UserRepository userRepository;
   private final DriverService driverService;
   private final ResponsibleService responsibleService;
+
+  private final UserMapper userMapper;
 
   @Override
   public UserDTO findByLogin(String login) {
@@ -38,6 +42,28 @@ public class UserServiceImpl implements UserService {
         .orElseThrow(() -> new UsernameNotFoundException("User with email " + login + " was not found in the database")
         )
     );
+  }
+
+  public UserResponseDTO findUser() throws Exception {
+    final String email = SecurityUtils.getCurrentUserLogin().orElse(null);
+
+    if (email == null) {
+      throw new Exception("Nenhum usuario logado");
+    }
+
+    final User user = userRepository.findByLogin(email).orElse(null);
+
+    if (user == null) {
+      throw new Exception("Usuario nao encontrado!");
+    }
+
+    if (user.getPerfis().contains(Perfil.RESPONSIBLE)) {
+      final ResponsibleDTO responsible = responsibleService.findByEmail(user.getLogin());
+      return new UserResponseDTO(responsible);
+    }
+
+    final DriverDTO driver = driverService.findByEmail(user.getLogin());
+    return new UserResponseDTO(driver);
   }
 
   @Override
@@ -56,16 +82,18 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void register(UserRegisterDTO userRegisterDTO) throws NoSuchAlgorithmException {
+  public void register(UserRegisterDTO userRegisterDTO) throws Exception {
     UserDTO userDTO = new UserDTO(userRegisterDTO, passwordEncoder.encode(userRegisterDTO.getPassword()));
     userDTO = save(userDTO);
 
-    if (userRegisterDTO.getType().equals("driver")) {
+    if (userRegisterDTO.getType() == Perfil.DRIVER) {
       DriverDTO driverDTO = new DriverDTO(userRegisterDTO, userDTO.getId());
       driverService.save(driverDTO);
-    } else if (userRegisterDTO.getType().equals("responsible")) {
+    } else if (userRegisterDTO.getType() == Perfil.RESPONSIBLE) {
       ResponsibleDTO responsibleDTO = new ResponsibleDTO(userRegisterDTO, userDTO.getId());
       responsibleService.save(responsibleDTO);
+    } else {
+      throw new Exception("Usuario sem Tipo");
     }
   }
 }

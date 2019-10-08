@@ -2,19 +2,16 @@ package com.cade.cadeonibus.service.impl;
 
 import com.cade.cadeonibus.domain.Child;
 import com.cade.cadeonibus.domain.Driver;
-import com.cade.cadeonibus.domain.User;
+import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.dto.ChildDTO;
-import com.cade.cadeonibus.dto.DriverDTO;
-import com.cade.cadeonibus.dto.ResponsibleDTO;
 import com.cade.cadeonibus.dto.UserDTO;
 import com.cade.cadeonibus.dto.mapper.ChildMapper;
 import com.cade.cadeonibus.enums.Perfil;
 import com.cade.cadeonibus.repository.ChildRepository;
 import com.cade.cadeonibus.repository.DriverRepository;
+import com.cade.cadeonibus.repository.ResponsibleRepository;
 import com.cade.cadeonibus.security.SecurityUtils;
 import com.cade.cadeonibus.service.ChildService;
-import com.cade.cadeonibus.service.DriverService;
-import com.cade.cadeonibus.service.ResponsibleService;
 import com.cade.cadeonibus.service.UserService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -32,24 +29,23 @@ public class ChildServiceImpl implements ChildService {
 
   private final ChildRepository childRepository;
   private final DriverRepository driverRepository;
+  private final ResponsibleRepository responsibleRepository;
   private final ChildMapper childMapper;
   private final UserService userService;
-  private final ResponsibleService responsibleService;
 
+  @Override
   public List<ChildDTO> findAll() {
     log.debug("Request to get all children");
 
-    String login = SecurityUtils.getCurrentUserLogin().get();
-    List<Child> childList = null;
+    final String login = SecurityUtils.getCurrentUserLogin().orElse(null);
+    final UserDTO user = userService.findByLogin(login);
 
-    UserDTO user = userService.findByLogin(login);
     if (user.getPerfis().contains(Perfil.DRIVER)) {
-      childList = childRepository.findAllByDriverEmail(user.getLogin());
-    } else {
-      childList = childRepository.findAllByResponsibleEmail(user.getLogin());
+      final List<Child> children = childRepository.findAllByDriverEmail(user.getLogin());
+      return childMapper.toDTO(children);
     }
-
-    return childMapper.toDTO(childList);
+    final List<Child> children = childRepository.findAllByResponsibleEmail(user.getLogin());
+    return childMapper.toDTO(children);
   }
 
   @Override
@@ -61,20 +57,16 @@ public class ChildServiceImpl implements ChildService {
   }
 
   @Override
-  public ChildDTO save(ChildDTO dto) {
+  public void save(ChildDTO dto) {
     log.debug("Request to save Child -> {}", dto);
 
     final Driver driver = driverRepository.findByCode(dto.getDriverCode());
+    final String email = SecurityUtils.getCurrentUserLogin().orElse(null);
+    final Responsible responsible = responsibleRepository.findByEmail(email);
     final Child child = childMapper.toEntity(dto);
-    child.setDriver(driver);
-    final Child saved = childRepository.save(child);
-    return childMapper.toDTO(saved);
-//    String login = SecurityUtils.getCurrentUserLogin().get();
-//    ResponsibleDTO responsibleDTO = responsibleService.findByEmail(login);
-//    dto.setResponsibleId(responsibleDTO.getId());
 
-//    Child child = childMapper.toEntity(dto);
-//    Child saved = childRepository.save(child);
-//    return childMapper.toDTO(saved);
+    child.setResponsible(responsible);
+    child.setDriver(driver);
+    childRepository.save(child);
   }
 }

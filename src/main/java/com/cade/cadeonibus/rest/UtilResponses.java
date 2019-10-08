@@ -10,6 +10,10 @@ public class UtilResponses<E> {
     return ResponseEntity.status(status).body(body);
   }
 
+  ResponseEntity<Void> successResponse(HttpStatus status) {
+    return ResponseEntity.status(status).build();
+  }
+
   ResponseEntity<E> successResponse(E body) {
     return ResponseEntity.status(HttpStatus.OK).body(body);
   }
