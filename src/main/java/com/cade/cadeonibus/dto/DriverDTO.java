@@ -1,5 +1,6 @@
 package com.cade.cadeonibus.dto;
 
+import com.cade.cadeonibus.dto.dao.DriverDAO;
 import lombok.Data;
 
 import javax.xml.bind.DatatypeConverter;
@@ -31,5 +32,15 @@ public class DriverDTO {
     MessageDigest md = MessageDigest.getInstance("MD5");
     md.update(userId.toString().getBytes());
     this.code = DatatypeConverter.printHexBinary(md.digest()).toUpperCase();
+  }
+
+  public DriverDTO(final DriverDAO dao) {
+    this.id = dao.getId();
+    this.name = dao.getName();
+    this.nickname = dao.getNickname();
+    this.email = dao.getEmail();
+    this.phone = dao.getPhone();
+    this.cpf = dao.getCpf();
+    this.code = dao.getCode();
   }
 }

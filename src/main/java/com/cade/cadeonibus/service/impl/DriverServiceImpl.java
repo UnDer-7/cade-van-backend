@@ -3,13 +3,17 @@ package com.cade.cadeonibus.service.impl;
 import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
+import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.dto.mapper.DriverMapper;
 import com.cade.cadeonibus.repository.ChildRepository;
+import com.cade.cadeonibus.dto.dao.DriverDAO;
 import com.cade.cadeonibus.repository.DriverRepository;
 import com.cade.cadeonibus.security.SecurityUtils;
 import com.cade.cadeonibus.service.DriverService;
 import com.cade.cadeonibus.service.ResponsibleService;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -20,6 +24,7 @@ import java.util.stream.Collectors;
 @Transactional
 @AllArgsConstructor
 public class DriverServiceImpl implements DriverService {
+  private final Logger log = LoggerFactory.getLogger(DriverServiceImpl.class);
 
   private final DriverRepository driverRepository;
   private final ChildRepository childRepository;
@@ -49,5 +54,11 @@ public class DriverServiceImpl implements DriverService {
   public DriverDTO findByEmail(final String email) {
     final Driver driver = driverRepository.findByEmail(email);
     return driverMapper.toDTO(driver);
+  }
+
+  @Override
+  public DriverDTO findResponsibleDriver(final long responsibleId, final long driverId) {
+    final DriverDAO driver = driverRepository.findResponsibleDrivers(responsibleId, driverId);
+    return new DriverDTO(driver);
   }
 }

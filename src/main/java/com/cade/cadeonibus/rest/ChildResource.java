@@ -23,7 +23,6 @@ public class ChildResource {
   private final Logger log = LoggerFactory.getLogger(ChildResource.class);
 
   private final ChildService childService;
-
   private final UtilResponses<ChildDTO> utilResponses;
 
   @GetMapping("/{id}")

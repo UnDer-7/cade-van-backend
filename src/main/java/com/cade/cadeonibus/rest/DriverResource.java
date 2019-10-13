@@ -5,9 +5,9 @@ import com.cade.cadeonibus.service.DriverService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +23,14 @@ public class DriverResource {
   private final DriverService driverService;
 
   @GetMapping()
-  public ResponseEntity<?> findAll() {
+  public ResponseEntity<List<DriverDTO>> findAll() {
     List<DriverDTO> drivers = driverService.findAll();
-    return new ResponseEntity<>(drivers, HttpStatus.OK);
+    return ResponseEntity.ok(drivers);
+  }
+
+  @GetMapping("/my-drivers/{responsibleId}/{driverId}")
+  public ResponseEntity<DriverDTO> findResponsibleDriver(@PathVariable long responsibleId, @PathVariable long driverId) {
+    final DriverDTO dto = driverService.findResponsibleDriver(responsibleId, driverId);
+    return ResponseEntity.ok(dto);
   }
 }

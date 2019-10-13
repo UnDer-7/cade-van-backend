@@ -10,4 +10,6 @@ public interface DriverService {
   List<DriverDTO> findAll();
 
   DriverDTO findByEmail(final String email);
+
+  DriverDTO findResponsibleDriver(final long responsibleId, final long driverId);
 }
