@@ -1,0 +1,65 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1571094321015-1
+      author: lucas (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: itineraryPK
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+            tableName: itinerary
+  - changeSet:
+      id: 1571094321015-2
+      author: lucas (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: itinerary_childPK
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: order
+                  type: INT
+              - column:
+                  name: child_id
+                  type: BIGINT
+              - column:
+                  name: itinerary_id
+                  type: BIGINT
+            tableName: itinerary_child
+  - changeSet:
+      id: 1571094321015-3
+      author: lucas (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: itinerary_id
+            baseTableName: itinerary_child
+            constraintName: FK_2nblm9gylfj3bycqrm8ichoee
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: id
+            referencedTableName: itinerary
+  - changeSet:
+      id: 1571094321015-5
+      author: lucas (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: child_id
+            baseTableName: itinerary_child
+            constraintName: FK_5h0ptery5mqqypalo0gico7wg
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: id
+            referencedTableName: child
