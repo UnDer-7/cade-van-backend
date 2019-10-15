@@ -7,10 +7,7 @@ public class ItineraryChildDTO extends BaseAbstractDTO {
 
   private Integer order;
 
-  private Long childId;
+  private ChildDTO child;
 
-  private String childName;
-
-  private Long itineraryId;
-
+  private ItineraryDTO itinerary;
 }
