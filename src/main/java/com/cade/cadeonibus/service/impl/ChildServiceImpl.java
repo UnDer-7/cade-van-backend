@@ -34,13 +34,10 @@ public class ChildServiceImpl implements ChildService {
   private final UserService userService;
 
   @Override
-  public List<ChildDTO> findAll() throws Exception {
+  public List<ChildDTO> findAll() {
     log.debug("Request to get all children");
 
     final String login = SecurityUtils.getCurrentUserLogin().orElse(null);
-    if (login == null) {
-      throw new Exception("User logado nao encontrado");
-    }
 
     final UserResponseDTO user = userService.findByLogin(login);
 

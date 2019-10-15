@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name = "itinerary_child")
 public class ItineraryChild extends BaseAbstract {
 
-  @Column(name = "order")
+  @Column(name = "child_order")
   private Integer order;
 
   @OneToOne

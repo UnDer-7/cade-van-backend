@@ -5,7 +5,7 @@ import com.cade.cadeonibus.dto.UserRegisterDTO;
 import com.cade.cadeonibus.dto.UserResponseDTO;
 
 public interface UserService {
-  UserResponseDTO findByLogin(String login) throws Exception;
+  UserResponseDTO findByLogin(String login);
 
   UserDTO findOne(Long id);
 

@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1571106232312-1
+      author: lucas (generated)
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: driver_id
+                  type: int8
+            tableName: itinerary
+  - changeSet:
+      id: 1571106232312-2
+      author: lucas (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: driver_id
+            baseTableName: itinerary
+            constraintName: FK_39ek8plkll436y207h8ei40sv
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: id
+            referencedTableName: driver

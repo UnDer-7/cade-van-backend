@@ -1,11 +1,7 @@
 package com.cade.cadeonibus.service.impl;
 
 import com.cade.cadeonibus.domain.User;
-import com.cade.cadeonibus.dto.DriverDTO;
-import com.cade.cadeonibus.dto.ResponsibleDTO;
-import com.cade.cadeonibus.dto.UserDTO;
-import com.cade.cadeonibus.dto.UserRegisterDTO;
-import com.cade.cadeonibus.dto.UserResponseDTO;
+import com.cade.cadeonibus.dto.*;
 import com.cade.cadeonibus.dto.mapper.UserMapper;
 import com.cade.cadeonibus.enums.Perfil;
 import com.cade.cadeonibus.repository.UserRepository;
@@ -36,22 +32,16 @@ public class UserServiceImpl implements UserService {
   private final UserMapper userMapper;
 
   @Override
-  public UserResponseDTO findByLogin(String login) throws Exception {
+  public UserResponseDTO findByLogin(String login) {
     final User user = userRepository.findByLogin(login).orElse(null);
-    if (user == null) {
-      throw new Exception("Usuario com E-mail: " + login + " nao encontrado");
-    }
 
     if (user.getPerfis().contains(Perfil.RESPONSIBLE)) {
       final ResponsibleDTO dto = responsibleService.findByEmail(user.getLogin());
       return new UserResponseDTO(dto);
-    }
-
-    if (user.getPerfis().contains(Perfil.DRIVER)) {
+    } else {
       final DriverDTO dto = driverService.findByEmail(user.getLogin());
       return new UserResponseDTO(dto);
     }
-    throw new Exception("Usuario com Perfil: " + user.getPerfis() + " nao encontrado");
   }
 
   public UserResponseDTO findUser() throws Exception {
