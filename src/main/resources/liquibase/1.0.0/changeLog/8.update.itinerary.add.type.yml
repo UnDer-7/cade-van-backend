@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1571353014702-1
+      author: lucas (generated)
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: itinerary_type
+                  type: varchar(255)
+            tableName: itinerary

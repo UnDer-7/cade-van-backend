@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1571353418498-2
+      author: lucas (generated)
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: status
+                  type: varchar(255)
+            tableName: child
