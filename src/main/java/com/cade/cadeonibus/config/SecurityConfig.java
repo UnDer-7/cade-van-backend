@@ -27,7 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   private JWTUtil jwtUtil;
 
   private static final String[] PUBLIC_MATCHERS = {
-    "/api/user/register"
+    "/api/user/register",
+    "/app/**",
+    "/ws"
   };
 
   @Override
