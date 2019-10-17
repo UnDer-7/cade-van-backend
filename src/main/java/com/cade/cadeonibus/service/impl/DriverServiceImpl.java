@@ -1,9 +1,11 @@
 package com.cade.cadeonibus.service.impl;
 
+import com.cade.cadeonibus.domain.Child;
 import com.cade.cadeonibus.domain.Driver;
+import com.cade.cadeonibus.dto.ChildDTO;
 import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
-import com.cade.cadeonibus.dto.UserResponseDTO;
+import com.cade.cadeonibus.dto.mapper.ChildMapper;
 import com.cade.cadeonibus.dto.mapper.DriverMapper;
 import com.cade.cadeonibus.repository.ChildRepository;
 import com.cade.cadeonibus.dto.dao.DriverDAO;
@@ -32,6 +34,7 @@ public class DriverServiceImpl implements DriverService {
   private final ResponsibleService responsibleService;
 
   private final DriverMapper driverMapper;
+  private final ChildMapper childMapper;
 
   @Override
   public DriverDTO save(DriverDTO driverDTO) {
@@ -60,5 +63,13 @@ public class DriverServiceImpl implements DriverService {
   public DriverDTO findResponsibleDriver(final long responsibleId, final long driverId) {
     final DriverDAO driver = driverRepository.findResponsibleDrivers(responsibleId, driverId);
     return new DriverDTO(driver);
+  }
+
+  @Override
+  public List<ChildDTO> findMyChildren() throws Exception {
+    final String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Nenhum usuario logado"));
+    final Driver driver = driverRepository.findByEmail(login);
+    final List<Child> child = childRepository.findAllByDriverId(driver.getId());
+    return childMapper.toDTO(child);
   }
 }

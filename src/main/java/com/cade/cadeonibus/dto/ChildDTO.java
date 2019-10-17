@@ -1,15 +1,16 @@
 package com.cade.cadeonibus.dto;
 
-import com.cade.cadeonibus.domain.BaseAbstract;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
-@Data
-@EqualsAndHashCode(callSuper=true)
-public class ChildDTO extends BaseAbstract {
+@Getter
+@Setter
+@NoArgsConstructor
+public class ChildDTO extends BaseAbstractDTO {
 
   private Long id;
 

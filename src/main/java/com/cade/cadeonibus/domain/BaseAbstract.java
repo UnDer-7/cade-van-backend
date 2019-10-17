@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class BaseAbstract implements Serializable {
+abstract class BaseAbstract implements Serializable {
   private static final long serialVersionUID = 6657939650552911228L;
 
   @Id

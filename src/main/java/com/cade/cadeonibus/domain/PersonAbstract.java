@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class PersonAbstract extends BaseAbstract{
+abstract class PersonAbstract extends BaseAbstract{
 
   @Column(name = "name")
   private String name;

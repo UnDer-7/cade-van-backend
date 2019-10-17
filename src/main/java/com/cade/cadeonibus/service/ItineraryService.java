@@ -5,7 +5,7 @@ import com.cade.cadeonibus.dto.ItineraryDTO;
 import java.util.List;
 
 public interface ItineraryService {
-  void save(ItineraryDTO itinerary);
+  void save(ItineraryDTO itinerary) throws Exception;
 
-  List<ItineraryDTO> findAll();
+  List<ItineraryDTO> findAll() throws Exception;
 }

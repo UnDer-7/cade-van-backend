@@ -1,8 +1,12 @@
 package com.cade.cadeonibus.dto;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class ItineraryChildDTO extends BaseAbstractDTO {
 
   private Integer order;

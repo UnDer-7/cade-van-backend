@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public abstract class BaseAbstractDTO implements Serializable {
+abstract class BaseAbstractDTO implements Serializable {
   private static final long serialVersionUID = 7868841091728770710L;
   private Long id;
 }

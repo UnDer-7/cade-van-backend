@@ -1,5 +1,6 @@
 package com.cade.cadeonibus.service;
 
+import com.cade.cadeonibus.dto.ChildDTO;
 import com.cade.cadeonibus.dto.DriverDTO;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface DriverService {
   DriverDTO findByEmail(final String email);
 
   DriverDTO findResponsibleDriver(final long responsibleId, final long driverId);
+
+  List<ChildDTO> findMyChildren() throws Exception;
 }

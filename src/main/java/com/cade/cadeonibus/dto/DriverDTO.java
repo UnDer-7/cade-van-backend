@@ -2,12 +2,14 @@ package com.cade.cadeonibus.dto;
 
 import com.cade.cadeonibus.dto.dao.DriverDAO;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 @Data
+@NoArgsConstructor
 public class DriverDTO {
   private Long id;
   private String name;
@@ -17,9 +19,6 @@ public class DriverDTO {
   private String cpf;
   private Long userId;
   private String code;
-
-  public DriverDTO() {
-  }
 
   public DriverDTO(UserRegisterDTO userRegisterDTO, Long userId) throws NoSuchAlgorithmException {
     this.name = userRegisterDTO.getName();

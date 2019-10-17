@@ -1,19 +1,18 @@
 package com.cade.cadeonibus.dto;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@EqualsAndHashCode(callSuper=true)
+@Getter
+@Setter
+@NoArgsConstructor
 public class ResponsibleDTO extends BaseAbstractDTO {
   private Long id;
   private String name;
   private String email;
   private String phone;
   private Long userId;
-
-  public ResponsibleDTO() {
-  }
 
   public ResponsibleDTO(UserRegisterDTO userRegisterDTO, Long userId) {
     this.name = userRegisterDTO.getName();
