@@ -30,7 +30,7 @@ databaseChangeLog:
                   name: id
                   type: BIGINT
               - column:
-                  name: child_order
+                  name: order
                   type: INT
               - column:
                   name: child_id
