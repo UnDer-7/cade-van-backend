@@ -1,16 +1,20 @@
 package com.cade.cadeonibus.dto;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+import javax.validation.constraints.NotNull;
+
+@Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class ItineraryChildDTO extends BaseAbstractDTO {
 
-  private Integer order;
+  @NotNull
+  private Integer childOrder;
 
+  @NotNull
   private ChildDTO child;
 
   private ItineraryDTO itinerary;

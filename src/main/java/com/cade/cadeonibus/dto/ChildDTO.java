@@ -1,14 +1,15 @@
 package com.cade.cadeonibus.dto;
 
-import lombok.Getter;
+import com.cade.cadeonibus.enums.ChildStatus;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class ChildDTO extends BaseAbstractDTO {
 
@@ -25,6 +26,8 @@ public class ChildDTO extends BaseAbstractDTO {
 
   @NotEmpty
   private String period;
+
+  private ChildStatus status;
 
   private Long responsibleId;
 

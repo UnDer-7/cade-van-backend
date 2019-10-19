@@ -1,11 +1,11 @@
 package com.cade.cadeonibus.dto;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class ResponsibleDTO extends BaseAbstractDTO {
   private Long id;

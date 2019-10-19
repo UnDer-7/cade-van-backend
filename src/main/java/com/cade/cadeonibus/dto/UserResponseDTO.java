@@ -4,8 +4,10 @@ import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.enums.Perfil;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class UserResponseDTO {
   private Long id;
   private String name;

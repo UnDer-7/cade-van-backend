@@ -1,19 +1,22 @@
 package com.cade.cadeonibus.dto;
 
 import com.cade.cadeonibus.enums.Perfil;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class UserDTO extends BaseAbstractDTO {
 
   private String login;
   private String passwordHash;
   private Set<Perfil> perfis = new HashSet<>();
-
-  public UserDTO() {
-  }
 
   public UserDTO(UserRegisterDTO userRegisterDTO, String passwordHash) throws Exception {
     this.login = userRegisterDTO.getEmail();
@@ -26,30 +29,6 @@ public class UserDTO extends BaseAbstractDTO {
     } else {
       throw new Exception("Nenhum perfil encontrado");
     }
-  }
-
-  public String getLogin() {
-    return login;
-  }
-
-  public void setLogin(String login) {
-    this.login = login;
-  }
-
-  public String getPasswordHash() {
-    return passwordHash;
-  }
-
-  public void setPasswordHash(String passwordHash) {
-    this.passwordHash = passwordHash;
-  }
-
-  public Set<Perfil> getPerfis() {
-    return perfis;
-  }
-
-  public void setPerfis(Set<Perfil> perfis) {
-    this.perfis = perfis;
   }
 
   @Override

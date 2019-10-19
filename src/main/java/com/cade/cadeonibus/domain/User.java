@@ -4,6 +4,7 @@ import com.cade.cadeonibus.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @Entity
 @Table(name = "users")
 public class User extends BaseAbstract {

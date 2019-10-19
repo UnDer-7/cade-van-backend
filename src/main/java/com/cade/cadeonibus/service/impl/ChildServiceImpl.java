@@ -7,6 +7,7 @@ import com.cade.cadeonibus.dto.ChildDTO;
 import com.cade.cadeonibus.dto.ChildStatusDTO;
 import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.dto.mapper.ChildMapper;
+import com.cade.cadeonibus.enums.ChildStatus;
 import com.cade.cadeonibus.enums.Perfil;
 import com.cade.cadeonibus.repository.ChildRepository;
 import com.cade.cadeonibus.repository.DriverRepository;
@@ -69,6 +70,7 @@ public class ChildServiceImpl implements ChildService {
 
     child.setResponsible(responsible);
     child.setDriver(driver);
+    child.setStatus(ChildStatus.LEFT_HOME);
     childRepository.save(child);
   }
 
