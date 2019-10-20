@@ -22,6 +22,8 @@ public class ItineraryDTO extends BaseAbstractDTO {
   @NotNull
   private Long driverId;
 
+  private boolean isAtivo;
+
   @NotEmpty
   private List<ItineraryChildDTO> itineraryChildren;
 }
