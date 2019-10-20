@@ -2,9 +2,12 @@ package com.cade.cadeonibus.service.impl;
 
 import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.domain.Itinerary;
+import com.cade.cadeonibus.domain.ItineraryChild;
 import com.cade.cadeonibus.dto.ItineraryDTO;
 import com.cade.cadeonibus.dto.mapper.ItineraryChildMapper;
 import com.cade.cadeonibus.dto.mapper.ItineraryMapper;
+import com.cade.cadeonibus.enums.ChildStatus;
+import com.cade.cadeonibus.repository.ChildRepository;
 import com.cade.cadeonibus.repository.DriverRepository;
 import com.cade.cadeonibus.repository.ItineraryChildRepository;
 import com.cade.cadeonibus.repository.ItineraryRepository;
@@ -28,6 +31,7 @@ public class ItineraryServiceImpl implements ItineraryService {
   private final ItineraryRepository itineraryRepository;
   private final ItineraryChildRepository itineraryChildRepository;
   private final DriverRepository driverRepository;
+  private final ChildRepository childRepository;
 
   private final ItineraryMapper itineraryMapper;
   private final ItineraryChildMapper itineraryChildMapper;
@@ -45,6 +49,34 @@ public class ItineraryServiceImpl implements ItineraryService {
     itineraryChildRepository.saveAll(itineraryChildMapper.toEntity(itineraryDTO.getItineraryChildren()));
 
     LOGGER.info("Itinerary saved");
+  }
+
+  @Override
+  public void updateAllChildrenToWaiting(final long itineraryId) throws Exception {
+    final boolean existeItineraryActivated = itineraryRepository.existsByIsAtivoTrue();
+    if (existeItineraryActivated) {
+      throw new Exception("Ja existe um itinerario em andamento");
+    }
+
+    itineraryRepository
+      .findById(itineraryId)
+      .stream()
+      .peek(item -> item.setAtivo(true))
+      .forEach(itineraryRepository::save);
+
+    itineraryChildRepository.findAllByItineraryId(itineraryId)
+      .stream()
+      .map(ItineraryChild::getChild)
+      .peek(item -> item.setStatus(ChildStatus.WAITING))
+      .forEach(childRepository::save);
+  }
+
+  @Override
+  public void finishItinerary(final long itineraryId) {
+    itineraryRepository.findById(itineraryId)
+      .stream()
+      .peek(item -> item.setAtivo(false))
+      .forEach(itineraryRepository::save);
   }
 
   @Override

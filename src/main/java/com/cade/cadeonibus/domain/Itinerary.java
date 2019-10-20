@@ -23,6 +23,9 @@ public class Itinerary extends BaseAbstract {
   @Column(name = "description")
   private String description;
 
+  @Column(name = "is_ativo")
+  private boolean isAtivo;
+
   @Enumerated(EnumType.STRING)
   @Column(name = "itinerary_type")
   private ItineraryType type;

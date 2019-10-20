@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      id: 157135388888-2
+      author: Mateus Gomes
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: is_ativo
+                  type: boolean
+                  defaultValue: false
+            tableName: itinerary

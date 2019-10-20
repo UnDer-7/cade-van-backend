@@ -8,11 +8,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {ResponsibleMapper.class, DriverMapper.class})
 public interface ChildMapper extends EntityMapper<ChildDTO, Child> {
 
-  @Mapping(source = "responsibleId", target = "responsible")
   @Mapping(source = "driverId", target = "driver")
   Child toEntity(ChildDTO dto);
 
-  @Mapping(source = "responsible.id", target = "responsibleId")
   @Mapping(source = "driver.id", target = "driverId")
   ChildDTO toDTO(Child entity);
 

@@ -12,4 +12,6 @@ public interface ItineraryRepository extends JpaRepository<Itinerary, Long> {
   List<Itinerary> findAllByDriver(Driver driver);
 
   List<Itinerary> findAllByDriverEmail(String email);
+
+  boolean existsByIsAtivoTrue();
 }

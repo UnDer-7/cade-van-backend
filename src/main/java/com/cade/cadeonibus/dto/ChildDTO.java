@@ -29,7 +29,7 @@ public class ChildDTO extends BaseAbstractDTO {
 
   private ChildStatus status;
 
-  private Long responsibleId;
+  private ResponsibleDTO responsible;
 
   private String driverCode;
 

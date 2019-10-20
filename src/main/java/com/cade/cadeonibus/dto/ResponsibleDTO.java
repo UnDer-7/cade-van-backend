@@ -1,5 +1,6 @@
 package com.cade.cadeonibus.dto;
 
+import com.cade.cadeonibus.enums.Perfil;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ public class ResponsibleDTO extends BaseAbstractDTO {
   private String email;
   private String phone;
   private Long userId;
+  private Perfil perfil = Perfil.RESPONSIBLE;
 
   public ResponsibleDTO(UserRegisterDTO userRegisterDTO, Long userId) {
     this.name = userRegisterDTO.getName();
