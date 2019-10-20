@@ -6,12 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,11 +17,11 @@ import java.util.Set;
 @Table(name = "users")
 public class User extends BaseAbstract {
 
-  @Column(name = "login")
+  @Column(name = "login", nullable = false)
   private String login;
 
   @JsonIgnore
-  @Column(name = "password_hash")
+  @Column(name = "password_hash", nullable = false)
   private String passwordHash;
 
   @ElementCollection(fetch = FetchType.EAGER)
