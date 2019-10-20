@@ -14,9 +14,9 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Entity
 @Table(name = "responsible")
-public class Responsible extends PersonAbstract{
+public class Responsible extends PersonAbstract {
 
   @OneToOne
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
   private User user;
 }

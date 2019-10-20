@@ -1,0 +1,109 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1571602137267-1
+      author: lucas (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: ChatPK
+                  name: id
+                  type: BIGINT
+            tableName: chat
+  - changeSet:
+      id: 1571602137267-2
+      author: lucas (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: ChatMessagePK
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: created_at
+                  type: timestamp
+              - column:
+                  name: text
+                  type: VARCHAR(255)
+              - column:
+                  name: chat_id
+                  type: BIGINT
+              - column:
+                  name: user_id
+                  type: BIGINT
+            tableName: chat_message
+  - changeSet:
+      id: 1571602137267-3
+      author: lucas (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: ChatUserPK
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: chat_id
+                  type: BIGINT
+              - column:
+                  name: user_id
+                  type: BIGINT
+            tableName: chat_user
+  - changeSet:
+      id: 1571602137267-4
+      author: lucas (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: chat_user
+            constraintName: FK_15uobykc252jocordt79yvlj3
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: id
+            referencedTableName: users
+  - changeSet:
+      id: 1571602137267-5
+      author: lucas (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: chat_id
+            baseTableName: chat_message
+            constraintName: FK_2ci9feu18qhur3e0byos0iqmo
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: id
+            referencedTableName: chat
+  - changeSet:
+      id: 1571602137267-7
+      author: lucas (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: chat_id
+            baseTableName: chat_user
+            constraintName: FK_gi4eh0wi91dqtf8nbtuwbg2yr
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: id
+            referencedTableName: chat
+  - changeSet:
+      id: 1571602137267-8
+      author: lucas (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: chat_message
+            constraintName: FK_p1hhjml3oyiwl3wgrwjlpucm6
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: id
+            referencedTableName: users

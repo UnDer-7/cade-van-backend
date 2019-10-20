@@ -4,11 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -19,7 +15,7 @@ public class Driver extends BaseAbstract {
   @Column(name = "name")
   private String name;
 
-  @Column(name = "nickname")
+  @Column(name = "nickname", nullable = false)
   private String nickname;
 
   @Column(name = "email")
@@ -28,13 +24,13 @@ public class Driver extends BaseAbstract {
   @Column(name = "phone")
   private String phone;
 
-  @Column(name = "cpf")
+  @Column(name = "cpf", nullable = false)
   private String cpf;
 
-  @Column(name = "code")
+  @Column(name = "code", nullable = false)
   private String code;
 
   @OneToOne
-  @JoinColumn(name = "user_id", referencedColumnName = "id")
+  @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
   private User user;
 }
