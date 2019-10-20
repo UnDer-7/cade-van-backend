@@ -1,11 +1,7 @@
 package com.cade.cadeonibus.service.impl;
 
 import com.cade.cadeonibus.domain.User;
-import com.cade.cadeonibus.dto.DriverDTO;
-import com.cade.cadeonibus.dto.ResponsibleDTO;
-import com.cade.cadeonibus.dto.UserDTO;
-import com.cade.cadeonibus.dto.UserRegisterDTO;
-import com.cade.cadeonibus.dto.UserResponseDTO;
+import com.cade.cadeonibus.dto.*;
 import com.cade.cadeonibus.dto.mapper.UserMapper;
 import com.cade.cadeonibus.enums.Perfil;
 import com.cade.cadeonibus.repository.UserRepository;

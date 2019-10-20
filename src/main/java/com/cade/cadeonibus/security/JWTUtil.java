@@ -18,10 +18,10 @@ public class JWTUtil {
 
   public String generateToken(String username) {
     return Jwts.builder()
-            .setSubject(username)
-            .setExpiration(new Date(System.currentTimeMillis() + expiration))
-            .signWith(SignatureAlgorithm.HS512, secret.getBytes())
-            .compact();
+      .setSubject(username)
+      .setExpiration(new Date(System.currentTimeMillis() + expiration))
+      .signWith(SignatureAlgorithm.HS512, secret.getBytes())
+      .compact();
   }
 
   public boolean tokenValido(String token) {
@@ -30,9 +30,7 @@ public class JWTUtil {
       String username = claims.getSubject();
       Date expirationDate = claims.getExpiration();
       Date now = new Date(System.currentTimeMillis());
-      if (username != null && now.before(expirationDate)) {
-        return true;
-      }
+      return username != null && now.before(expirationDate);
     }
     return false;
   }
