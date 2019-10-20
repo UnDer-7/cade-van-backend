@@ -22,15 +22,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-  private UserDetailsService userDetailsService;
-
-  private JWTUtil jwtUtil;
-
   private static final String[] PUBLIC_MATCHERS = {
     "/api/user/register",
     "/app/**",
     "/ws"
   };
+  private UserDetailsService userDetailsService;
+  private JWTUtil jwtUtil;
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {

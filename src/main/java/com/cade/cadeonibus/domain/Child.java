@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "child")
-public class Child extends BaseAbstract{
+public class Child extends BaseAbstract {
 
   @Column(name = "name", nullable = false)
   private String name;
