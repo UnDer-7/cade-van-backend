@@ -12,7 +12,9 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
   @Override
   public void configureMessageBroker(MessageBrokerRegistry config) {
+    // These are endpoints the client can subscribes to.
     config.enableSimpleBroker("/topic");
+    // Message received with one of those below destinationPrefixes will be automatically router to controllers @MessageMapping
     config.setApplicationDestinationPrefixes("/api");
   }
 
