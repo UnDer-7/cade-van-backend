@@ -52,4 +52,10 @@ public class ChildResource {
     childService.updateStatus(childStatus);
     return utilResponses.successResponse(HttpStatus.OK);
   }
+
+  @GetMapping("/itinerary/{itineraryId}")
+  public ResponseEntity<Void> updateStatusWaiting(@PathVariable final long itineraryId) {
+    childService.updateStatusToWaiting(itineraryId);
+    return ResponseEntity.ok().build();
+  }
 }

@@ -13,4 +13,6 @@ public interface ChildService {
   void save(ChildDTO child);
 
   void updateStatus(ChildStatusDTO childStatus);
+
+  void updateStatusToWaiting(final long itineraryId);
 }

@@ -1,5 +1,6 @@
 package com.cade.cadeonibus.rest;
 
+import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
 import com.cade.cadeonibus.service.ResponsibleService;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -39,5 +42,11 @@ public class ResponsibleResource {
 
     ResponsibleDTO saved = responsibleService.save(dto);
     return utilResponses.successResponse(HttpStatus.CREATED, saved);
+  }
+
+  @GetMapping("/my-drivers")
+  public ResponseEntity<List<DriverDTO>> getMyDrivers() throws Exception {
+    List<DriverDTO> dto = responsibleService.findMyDrivers();
+    return ResponseEntity.ok(dto);
   }
 }

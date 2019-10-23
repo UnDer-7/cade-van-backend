@@ -1,9 +1,16 @@
 package com.cade.cadeonibus.service.impl;
 
+import com.cade.cadeonibus.domain.Child;
+import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.domain.Responsible;
+import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
+import com.cade.cadeonibus.dto.mapper.DriverMapper;
 import com.cade.cadeonibus.dto.mapper.ResponsibleMapper;
+import com.cade.cadeonibus.repository.ChildRepository;
+import com.cade.cadeonibus.repository.DriverRepository;
 import com.cade.cadeonibus.repository.ResponsibleRepository;
+import com.cade.cadeonibus.security.SecurityUtils;
 import com.cade.cadeonibus.service.ResponsibleService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -11,6 +18,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -19,8 +30,11 @@ public class ResponsibleServiceImpl implements ResponsibleService {
   private final Logger log = LoggerFactory.getLogger(ResponsibleServiceImpl.class);
 
   private final ResponsibleRepository responsibleRepository;
+  private final DriverRepository driverRepository;
+  private final ChildRepository childRepository;
 
   private final ResponsibleMapper responsibleMapper;
+  private final DriverMapper driverMapper;
 
   @Override
   public ResponsibleDTO getOne(final Long id) {
@@ -51,5 +65,26 @@ public class ResponsibleServiceImpl implements ResponsibleService {
   public ResponsibleDTO findByEmail(String email) {
     Responsible responsible = responsibleRepository.findByEmail(email);
     return responsibleMapper.toDTO(responsible);
+  }
+
+  @Override
+  public List<DriverDTO> findMyDrivers() throws Exception {
+    final String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Usuario nao esta logado"));
+
+    final List<Child> children = childRepository.findAllByResponsibleEmail(login);
+    if (children == null || children.isEmpty()) {
+      return new ArrayList<>();
+    }
+
+    return children
+      .stream()
+      .map(Child::getDriver)
+      .collect(Collectors.toUnmodifiableList())
+      .stream()
+      .map(Driver::getId)
+      .map(driverRepository::findById)
+      .map(Optional::orElseThrow)
+      .map(driverMapper::toDTO)
+      .collect(Collectors.toUnmodifiableList());
   }
 }

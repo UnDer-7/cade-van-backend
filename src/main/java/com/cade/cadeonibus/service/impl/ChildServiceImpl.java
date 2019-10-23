@@ -2,6 +2,7 @@ package com.cade.cadeonibus.service.impl;
 
 import com.cade.cadeonibus.domain.Child;
 import com.cade.cadeonibus.domain.Driver;
+import com.cade.cadeonibus.domain.ItineraryChild;
 import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.dto.ChildDTO;
 import com.cade.cadeonibus.dto.ChildStatusDTO;
@@ -11,6 +12,7 @@ import com.cade.cadeonibus.enums.ChildStatus;
 import com.cade.cadeonibus.enums.Perfil;
 import com.cade.cadeonibus.repository.ChildRepository;
 import com.cade.cadeonibus.repository.DriverRepository;
+import com.cade.cadeonibus.repository.ItineraryChildRepository;
 import com.cade.cadeonibus.repository.ResponsibleRepository;
 import com.cade.cadeonibus.security.SecurityUtils;
 import com.cade.cadeonibus.service.ChildService;
@@ -32,8 +34,11 @@ public class ChildServiceImpl implements ChildService {
   private final ChildRepository childRepository;
   private final DriverRepository driverRepository;
   private final ResponsibleRepository responsibleRepository;
-  private final ChildMapper childMapper;
+  private final ItineraryChildRepository itineraryChildRepository;
+
   private final UserService userService;
+
+  private final ChildMapper childMapper;
 
   @Override
   public List<ChildDTO> findAll() {
@@ -78,5 +83,13 @@ public class ChildServiceImpl implements ChildService {
   public void updateStatus(ChildStatusDTO childStatus) {
     Child child = childRepository.getOne(childStatus.getChildId());
     child.setStatus(childStatus.getStatus());
+  }
+
+  @Override
+  public void updateStatusToWaiting(final long itineraryId) {
+    itineraryChildRepository.findAllByItineraryId(itineraryId).stream()
+    .map(ItineraryChild::getChild)
+    .peek(item -> item.setStatus(ChildStatus.WAITING))
+    .forEach(childRepository::save);
   }
 }

@@ -18,5 +18,4 @@ public class DriverLocationDTO implements Serializable {
   private long itineraryId;
   private String driverName;
   private boolean isDriving;
-
 }
