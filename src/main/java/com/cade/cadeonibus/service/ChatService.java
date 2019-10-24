@@ -7,5 +7,9 @@ import com.cade.cadeonibus.dto.ChatMessageDTO;
 public interface ChatService {
   ChatDTO getOne(Long driverId, Long responsibleId);
 
+  ChatDTO getOneByChatIdAndResponsibleId(Long chatId, Long responsibleId);
+
+  ChatDTO getOneByChatIAndDriverId(Long chatId, Long driverId);
+
   ChatMessage saveMessage(ChatMessageDTO chatMessageDTO);
 }

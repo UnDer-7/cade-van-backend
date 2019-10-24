@@ -42,6 +42,18 @@ public class ChatServiceImpl implements ChatService {
   }
 
   @Override
+  public ChatDTO getOneByChatIdAndResponsibleId(Long chatId, Long responsibleId) {
+    Chat chat = chatRepository.findOneByIdAndResponsibleId(chatId, responsibleId);
+    return chatMapper.toDTO(chat);
+  }
+
+  @Override
+  public ChatDTO getOneByChatIAndDriverId(Long chatId, Long driverId) {
+    Chat chat = chatRepository.findOneByIdAndDriverId(chatId, driverId);
+    return chatMapper.toDTO(chat);
+  }
+
+  @Override
   public ChatMessage saveMessage(ChatMessageDTO chatMessageDTO) {
     ChatMessage chatMessage = chatMessageMapper.toEntity(chatMessageDTO);
     return chatMessageRepository.save(chatMessage);

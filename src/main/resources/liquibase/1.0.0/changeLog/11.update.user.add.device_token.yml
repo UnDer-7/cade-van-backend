@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1571881794212-1
+      author: lucas (generated)
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: device_token
+                  type: varchar(255)
+            tableName: users

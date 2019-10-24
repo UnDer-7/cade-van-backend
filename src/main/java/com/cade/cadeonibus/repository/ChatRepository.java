@@ -5,4 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ChatRepository extends JpaRepository<Chat, Long> {
   Chat findOneByDriverIdAndResponsibleId(Long driverId, Long responsibleId);
+
+  Chat findOneByIdAndResponsibleId(Long chatId, Long responsibleId);
+
+  Chat findOneByIdAndDriverId(Long chatId, Long driverId);
 }
