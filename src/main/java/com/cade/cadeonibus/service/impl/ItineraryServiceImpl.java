@@ -3,6 +3,7 @@ package com.cade.cadeonibus.service.impl;
 import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.domain.Itinerary;
 import com.cade.cadeonibus.domain.ItineraryChild;
+import com.cade.cadeonibus.dto.ItineraryChildDTO;
 import com.cade.cadeonibus.dto.ItineraryDTO;
 import com.cade.cadeonibus.dto.mapper.ItineraryChildMapper;
 import com.cade.cadeonibus.dto.mapper.ItineraryMapper;
@@ -11,6 +12,7 @@ import com.cade.cadeonibus.repository.ChildRepository;
 import com.cade.cadeonibus.repository.DriverRepository;
 import com.cade.cadeonibus.repository.ItineraryChildRepository;
 import com.cade.cadeonibus.repository.ItineraryRepository;
+import com.cade.cadeonibus.rest.exceptions.NotFoundException;
 import com.cade.cadeonibus.security.SecurityUtils;
 import com.cade.cadeonibus.service.ItineraryService;
 import lombok.AllArgsConstructor;
@@ -85,6 +87,18 @@ public class ItineraryServiceImpl implements ItineraryService {
     LOGGER.info("Requesto to get All Itinerary from user: {}", login);
     final List<ItineraryDTO> itineraryDTO = new ArrayList<>(itineraryMapper.toDTO(itineraryRepository.findAllByDriverEmail(login)));
     itineraryDTO.forEach(item -> item.setItineraryChildren(itineraryChildMapper.toDTO(itineraryChildRepository.findAllByItineraryId(item.getId()))));
+    return itineraryDTO;
+  }
+
+  @Override
+  public ItineraryDTO findOne(final long itineraryId) {
+    final Itinerary itinerary = itineraryRepository.findById(itineraryId).orElseThrow(NotFoundException::new);
+    final List<ItineraryChild> itineraryChildren = itineraryChildRepository.findAllByItineraryId(itinerary.getId());
+
+    final ItineraryDTO itineraryDTO = itineraryMapper.toDTO(itinerary);
+    final List<ItineraryChildDTO> itineraryChildDTOS = itineraryChildMapper.toDTO(itineraryChildren);
+
+    itineraryDTO.setItineraryChildren(itineraryChildDTOS);
     return itineraryDTO;
   }
 }

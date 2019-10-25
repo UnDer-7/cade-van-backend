@@ -12,4 +12,6 @@ public interface ItineraryService {
   void updateAllChildrenToWaiting(final long itineraryId) throws Exception;
 
   void finishItinerary(final long itineraryId);
+
+  ItineraryDTO findOne(final long itineraryId);
 }

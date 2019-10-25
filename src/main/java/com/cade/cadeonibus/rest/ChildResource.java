@@ -46,11 +46,11 @@ public class ChildResource {
   }
 
   @PutMapping
-  public ResponseEntity<Void> updateStatus(@RequestBody ChildStatusDTO childStatus) {
-    log.debug("REST request to update child Status -> {}", childStatus);
+  public ResponseEntity<ChildDTO> updateChild(@RequestBody final ChildDTO childDTO) {
+    log.debug("REST request to update child Status -> {}", childDTO);
 
-    childService.updateStatus(childStatus);
-    return utilResponses.successResponse(HttpStatus.OK);
+    final ChildDTO dto = childService.update(childDTO);
+    return ResponseEntity.ok(dto);
   }
 
   @GetMapping("/itinerary/{itineraryId}")

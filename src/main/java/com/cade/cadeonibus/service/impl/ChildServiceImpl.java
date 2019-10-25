@@ -80,9 +80,10 @@ public class ChildServiceImpl implements ChildService {
   }
 
   @Override
-  public void updateStatus(ChildStatusDTO childStatus) {
-    Child child = childRepository.getOne(childStatus.getChildId());
-    child.setStatus(childStatus.getStatus());
+  public ChildDTO update(final ChildDTO childDTO) {
+    final Child child = childMapper.toEntity(childDTO);
+    final Child childSaved = childRepository.save(child);
+    return childMapper.toDTO(childSaved);
   }
 
   @Override
