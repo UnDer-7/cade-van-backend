@@ -34,8 +34,13 @@ public class UserResource {
   }
 
   @GetMapping("/{email}")
-  public ResponseEntity<UserResponseDTO> findUserByEmail(@PathVariable final String email) throws Exception {
+  public ResponseEntity<UserResponseDTO> findUserByEmail(@PathVariable final String email) {
     final UserResponseDTO dto = userService.findByLogin(email);
     return ResponseEntity.ok(dto);
+  }
+
+  @PostMapping("/device-token")
+  public void updateToken(@RequestBody String deviceToken) throws Exception {
+    userService.updateToken(deviceToken);
   }
 }

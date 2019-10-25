@@ -10,3 +10,115 @@ databaseChangeLog:
                   type: boolean
                   defaultValue: false
             tableName: itinerary
+  - changeSet:
+      id: 1571610435861-1
+      author: lucas (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: chatPK
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: driver_id
+                  type: BIGINT
+              - column:
+                  name: responsible_id
+                  type: BIGINT
+            tableName: chat
+  - changeSet:
+      id: 1571610435861-2
+      author: lucas (generated)
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: chat_messagePK
+                  name: id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: created_at
+                  type: timestamp
+              - column:
+                  constraints:
+                    nullable: false
+                  name: text
+                  type: VARCHAR(255)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: chat_id
+                  type: BIGINT
+              - column:
+                  constraints:
+                    nullable: false
+                  name: user_id
+                  type: BIGINT
+            tableName: chat_message
+  - changeSet:
+      id: 1571610435861-4
+      author: lucas (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: chat_message
+            constraintName: FK_ajv7tvhnfye70noyw0sqxwd16
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: id
+            referencedTableName: users
+  - changeSet:
+      id: 1571610435861-5
+      author: lucas (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: chat_id
+            baseTableName: chat_message
+            constraintName: FK_bywk3g7n9ou8nirk5qv2wppa4
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: id
+            referencedTableName: chat
+  - changeSet:
+      id: 1571610435861-6
+      author: lucas (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: driver_id
+            baseTableName: chat
+            constraintName: FK_jm9prsupl2489tshfug5ppq67
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: id
+            referencedTableName: driver
+  - changeSet:
+      id: 1571610435861-7
+      author: lucas (generated)
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: responsible_id
+            baseTableName: chat
+            constraintName: FK_p123lesvs2e1in4i76w1kpidt
+            deferrable: false
+            initiallyDeferred: false
+            referencedColumnNames: id
+            referencedTableName: responsible
+  - changeSet:
+      id: 1571881794212-1
+      author: lucas (generated)
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: device_token
+                  type: varchar(255)
+            tableName: users

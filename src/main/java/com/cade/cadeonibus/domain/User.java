@@ -27,4 +27,7 @@ public class User extends BaseAbstract {
   @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "perfis")
   private Set<Perfil> perfis = new HashSet<>();
+
+  @Column(name = "device_token")
+  private String deviceToken;
 }

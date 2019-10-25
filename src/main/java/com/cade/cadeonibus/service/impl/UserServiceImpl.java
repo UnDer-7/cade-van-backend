@@ -96,4 +96,11 @@ public class UserServiceImpl implements UserService {
       throw new Exception("Usuario sem Tipo");
     }
   }
+
+  @Override
+  public void updateToken(String deviceToken) throws Exception {
+    final String email = SecurityUtils.getCurrentUserLogin().get();
+    User user = userRepository.findByLogin(email).orElseThrow();
+    user.setDeviceToken(deviceToken);
+  }
 }

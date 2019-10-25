@@ -17,6 +17,7 @@ public class UserDTO extends BaseAbstractDTO {
   private String login;
   private String passwordHash;
   private Set<Perfil> perfis = new HashSet<>();
+  private String deviceToken;
 
   public UserDTO(UserRegisterDTO userRegisterDTO, String passwordHash) throws Exception {
     this.login = userRegisterDTO.getEmail();
@@ -37,6 +38,7 @@ public class UserDTO extends BaseAbstractDTO {
       "login='" + login + '\'' +
       ", passwordHash='" + passwordHash + '\'' +
       ", perfis=" + perfis +
+      ", deviceToken=" + deviceToken +
       '}';
   }
 }
