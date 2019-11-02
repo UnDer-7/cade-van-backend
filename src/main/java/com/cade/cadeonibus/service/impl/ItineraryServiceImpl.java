@@ -12,14 +12,15 @@ import com.cade.cadeonibus.repository.ChildRepository;
 import com.cade.cadeonibus.repository.DriverRepository;
 import com.cade.cadeonibus.repository.ItineraryChildRepository;
 import com.cade.cadeonibus.repository.ItineraryRepository;
-import com.cade.cadeonibus.rest.exceptions.NotFoundException;
 import com.cade.cadeonibus.security.SecurityUtils;
 import com.cade.cadeonibus.service.ItineraryService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,8 @@ public class ItineraryServiceImpl implements ItineraryService {
 
   @Override
   public ItineraryDTO findOne(final long itineraryId) {
-    final Itinerary itinerary = itineraryRepository.findById(itineraryId).orElseThrow(NotFoundException::new);
+    final Itinerary itinerary = itineraryRepository.findById(itineraryId)
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Itinerário não encontrado"));
     final List<ItineraryChild> itineraryChildren = itineraryChildRepository.findAllByItineraryId(itinerary.getId());
 
     final ItineraryDTO itineraryDTO = itineraryMapper.toDTO(itinerary);
