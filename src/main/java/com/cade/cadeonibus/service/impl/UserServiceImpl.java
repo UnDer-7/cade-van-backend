@@ -12,9 +12,11 @@ import com.cade.cadeonibus.service.UserService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 
@@ -82,7 +84,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void register(UserRegisterDTO userRegisterDTO) throws Exception {
+  public void register(final UserRegisterDTO userRegisterDTO) throws Exception {
+    canRegister(userRegisterDTO);
     UserDTO userDTO = new UserDTO(userRegisterDTO, passwordEncoder.encode(userRegisterDTO.getPassword()));
     userDTO = save(userDTO);
 
@@ -102,5 +105,12 @@ public class UserServiceImpl implements UserService {
     final String email = SecurityUtils.getCurrentUserLogin().get();
     User user = userRepository.findByLogin(email).orElseThrow();
     user.setDeviceToken(deviceToken);
+  }
+
+  private void canRegister(final UserRegisterDTO dto) {
+    final User userFound = userRepository.findByLogin(dto.getEmail()).orElse(null);
+    if (userFound != null) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "E-mail já cadastrado");
+    }
   }
 }
