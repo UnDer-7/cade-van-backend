@@ -14,5 +14,5 @@ public interface DriverService {
 
   DriverDTO findResponsibleDriver(final long responsibleId, final long driverId);
 
-  List<ChildDTO> findMyChildren() throws Exception;
+  List<ChildDTO> findMyChildren();
 }

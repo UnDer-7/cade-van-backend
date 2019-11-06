@@ -11,9 +11,9 @@ public interface UserService {
 
   UserDTO save(UserDTO userDTO);
 
-  void register(UserRegisterDTO userRegisterDTO) throws Exception;
+  void register(UserRegisterDTO userRegisterDTO);
 
-  UserResponseDTO findUser() throws Exception;
+  UserResponseDTO findUser();
 
-  void updateToken(String deviceToken) throws Exception;
+  void updateToken(String deviceToken);
 }

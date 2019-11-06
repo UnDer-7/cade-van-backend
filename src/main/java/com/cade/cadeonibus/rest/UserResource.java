@@ -20,13 +20,13 @@ public class UserResource {
 
 
   @PostMapping("/register")
-  public void registerAccount(@Valid @RequestBody UserRegisterDTO userRegisterDTO) throws Exception {
+  public void registerAccount(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
     log.info("Rest request to register user : {}", userRegisterDTO);
     userService.register(userRegisterDTO);
   }
 
   @GetMapping("/user-loggedin")
-  public ResponseEntity<UserResponseDTO> findUserLoggedIn() throws Exception {
+  public ResponseEntity<UserResponseDTO> findUserLoggedIn() {
     final UserResponseDTO dto = userService.findUser();
     return ResponseEntity.ok(dto);
   }
@@ -38,7 +38,7 @@ public class UserResource {
   }
 
   @PostMapping("/device-token")
-  public void updateToken(@RequestBody String deviceToken) throws Exception {
+  public void updateToken(@RequestBody String deviceToken) {
     userService.updateToken(deviceToken);
   }
 }

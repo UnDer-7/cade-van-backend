@@ -40,10 +40,12 @@ public class ItineraryServiceImpl implements ItineraryService {
   private final ItineraryChildMapper itineraryChildMapper;
 
   @Override
-  public void save(ItineraryDTO itineraryDTO) throws Exception {
+  public void save(ItineraryDTO itineraryDTO) {
     Itinerary itinerary = itineraryMapper.toEntity(itineraryDTO);
 
-    final String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Usuario nao esta logado"));
+    final String login = SecurityUtils.getCurrentUserLogin()
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário não está logado"));
+
     final Driver driver = driverRepository.findByEmail(login);
     itinerary.setDriver(driver);
 
@@ -55,7 +57,7 @@ public class ItineraryServiceImpl implements ItineraryService {
   }
 
   @Override
-  public void updateAllChildrenToWaiting(final long itineraryId) throws Exception {
+  public void updateAllChildrenToWaiting(final long itineraryId) {
     final boolean existeItineraryActivated = itineraryRepository.existsByIsAtivoTrue();
     if (existeItineraryActivated) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe um itinerário em andamento");
@@ -83,10 +85,13 @@ public class ItineraryServiceImpl implements ItineraryService {
   }
 
   @Override
-  public List<ItineraryDTO> findAll() throws Exception {
-    final String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Usuario nao esta logado"));
+  public List<ItineraryDTO> findAll() {
+    final String login = SecurityUtils.getCurrentUserLogin()
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário não está logado"));
+
     LOGGER.info("Requesto to get All Itinerary from user: {}", login);
-    final List<ItineraryDTO> itineraryDTO = new ArrayList<>(itineraryMapper.toDTO(itineraryRepository.findAllByDriverEmail(login)));
+    final List<ItineraryDTO> itineraryDTO =
+      new ArrayList<>(itineraryMapper.toDTO(itineraryRepository.findAllByDriverEmail(login)));
     itineraryDTO.forEach(item -> item.setItineraryChildren(itineraryChildMapper.toDTO(itineraryChildRepository.findAllByItineraryId(item.getId()))));
     return itineraryDTO;
   }

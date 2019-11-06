@@ -17,19 +17,19 @@ public class ItineraryResource {
   private final UtilResponses<ItineraryDTO> utilResponses;
 
   @PostMapping
-  public ResponseEntity<Void> save(@RequestBody ItineraryDTO itinerary) throws Exception {
+  public ResponseEntity<Void> save(@RequestBody ItineraryDTO itinerary) {
     itineraryService.save(itinerary);
     return utilResponses.successResponse(HttpStatus.CREATED);
   }
 
   @GetMapping
-  public ResponseEntity<List<ItineraryDTO>> getAll() throws Exception {
+  public ResponseEntity<List<ItineraryDTO>> getAll() {
     final List<ItineraryDTO> dtos = itineraryService.findAll();
     return ResponseEntity.ok(dtos);
   }
 
   @GetMapping("/init/{itineraryId}")
-  public ResponseEntity<Void> initItinerary(@PathVariable final long itineraryId) throws Exception {
+  public ResponseEntity<Void> initItinerary(@PathVariable final long itineraryId) {
     itineraryService.updateAllChildrenToWaiting(itineraryId);
     return ResponseEntity.ok().build();
   }

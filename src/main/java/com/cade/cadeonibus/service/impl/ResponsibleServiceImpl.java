@@ -15,7 +15,9 @@ import com.cade.cadeonibus.service.ResponsibleService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -68,8 +70,9 @@ public class ResponsibleServiceImpl implements ResponsibleService {
   }
 
   @Override
-  public List<DriverDTO> findMyDrivers() throws Exception {
-    final String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Usuario nao esta logado"));
+  public List<DriverDTO> findMyDrivers() {
+    final String login = SecurityUtils.getCurrentUserLogin()
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário não está logado"));
 
     final List<Child> children = childRepository.findAllByResponsibleEmail(login);
     if (children == null || children.isEmpty()) {

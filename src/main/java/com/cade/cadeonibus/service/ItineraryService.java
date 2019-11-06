@@ -5,11 +5,11 @@ import com.cade.cadeonibus.dto.ItineraryDTO;
 import java.util.List;
 
 public interface ItineraryService {
-  void save(ItineraryDTO itinerary) throws Exception;
+  void save(ItineraryDTO itinerary);
 
-  List<ItineraryDTO> findAll() throws Exception;
+  List<ItineraryDTO> findAll();
 
-  void updateAllChildrenToWaiting(final long itineraryId) throws Exception;
+  void updateAllChildrenToWaiting(final long itineraryId);
 
   void finishItinerary(final long itineraryId);
 
