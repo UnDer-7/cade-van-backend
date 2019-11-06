@@ -58,7 +58,7 @@ public class ItineraryServiceImpl implements ItineraryService {
   public void updateAllChildrenToWaiting(final long itineraryId) throws Exception {
     final boolean existeItineraryActivated = itineraryRepository.existsByIsAtivoTrue();
     if (existeItineraryActivated) {
-      throw new Exception("Ja existe um itinerario em andamento");
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Já existe um itinerário em andamento");
     }
 
     itineraryRepository
