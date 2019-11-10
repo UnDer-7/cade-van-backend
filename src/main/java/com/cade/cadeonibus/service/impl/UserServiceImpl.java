@@ -102,6 +102,7 @@ public class UserServiceImpl implements UserService {
     User user = userRepository.findByLogin(email)
       .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
     user.setDeviceToken(deviceToken);
+    userRepository.save(user);
   }
 
   private void canRegister(final UserRegisterDTO dto) {
