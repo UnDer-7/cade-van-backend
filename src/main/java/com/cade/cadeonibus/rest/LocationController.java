@@ -76,15 +76,15 @@ public class LocationController {
 
     if (token == null) return;
 
+    UserResponseDTO completeUser = userService.findByLogin(user.getLogin());
+    Notification notification = new Notification(completeUser.getName(), chatMessage.getText());
+
+    Message message = Message.builder()
+      .setNotification(notification)
+      .setToken(token)
+      .build();
+
     try {
-      UserResponseDTO completeUser = userService.findByLogin(user.getLogin());
-      Notification notification = new Notification(completeUser.getName(), chatMessage.getText());
-
-      Message message = Message.builder()
-        .setNotification(notification)
-        .setToken(token)
-        .build();
-
       String response = FirebaseMessaging.getInstance().send(message);
       log.info("Message sent {}", response);
     } catch (FirebaseMessagingException e) {

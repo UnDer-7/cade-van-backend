@@ -5,7 +5,7 @@ import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.domain.ItineraryChild;
 import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.dto.ChildDTO;
-import com.cade.cadeonibus.dto.ChildStatusDTO;
+import com.cade.cadeonibus.dto.UserDTO;
 import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.dto.mapper.ChildMapper;
 import com.cade.cadeonibus.enums.ChildStatus;
@@ -17,6 +17,10 @@ import com.cade.cadeonibus.repository.ResponsibleRepository;
 import com.cade.cadeonibus.security.SecurityUtils;
 import com.cade.cadeonibus.service.ChildService;
 import com.cade.cadeonibus.service.UserService;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.Notification;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,14 +87,63 @@ public class ChildServiceImpl implements ChildService {
   public ChildDTO update(final ChildDTO childDTO) {
     final Child child = childMapper.toEntity(childDTO);
     final Child childSaved = childRepository.save(child);
+
+    try {
+      sendNotification(childSaved);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
     return childMapper.toDTO(childSaved);
+  }
+
+  private void sendNotification(Child child) {
+    UserResponseDTO user = userService.findByLogin(child.getDriver().getEmail());
+    UserDTO userDTO = userService.findOne(user.getId());
+
+    Notification notification = new Notification(child.getName(), getNotificationBody(child.getStatus()));
+
+    Message message = Message.builder()
+      .setNotification(notification)
+      .setToken(userDTO.getDeviceToken())
+      .build();
+
+    try {
+      String response = FirebaseMessaging.getInstance().send(message);
+      log.info("Message sent {}", response);
+    } catch (FirebaseMessagingException e) {
+      log.error("Não foi possível enviar a notificação de atualização de status da criança {}", message);
+      e.printStackTrace();
+    }
+  }
+
+  private String getNotificationBody(ChildStatus status) {
+    String body = null;
+    switch (status) {
+      case WAITING:
+        body = "O motorista acabou de iniciar o itinerário e está a caminho.";
+        break;
+      case GOING_HOME:
+        body = "O motorista está a caminho da sua casa.";
+        break;
+      case LEFT_HOME:
+        body = "Acabou de chegar em casa.";
+        break;
+      case GOING_SCHOOL:
+        body = "O motorista está a caminho do colégio.";
+        break;
+      case LEFT_SCHOOL:
+        body = "Acabou de chegar ao colégio.";
+        break;
+    }
+    return body;
   }
 
   @Override
   public void updateStatusToWaiting(final long itineraryId) {
     itineraryChildRepository.findAllByItineraryId(itineraryId).stream()
-    .map(ItineraryChild::getChild)
-    .peek(item -> item.setStatus(ChildStatus.WAITING))
-    .forEach(childRepository::save);
+      .map(ItineraryChild::getChild)
+      .peek(item -> item.setStatus(ChildStatus.WAITING))
+      .forEach(childRepository::save);
   }
 }
