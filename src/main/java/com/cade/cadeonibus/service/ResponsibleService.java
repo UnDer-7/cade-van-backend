@@ -14,5 +14,5 @@ public interface ResponsibleService {
 
   ResponsibleDTO findByEmail(String email);
 
-  List<DriverDTO> findMyDrivers() throws Exception;
+  List<DriverDTO> findMyDrivers();
 }

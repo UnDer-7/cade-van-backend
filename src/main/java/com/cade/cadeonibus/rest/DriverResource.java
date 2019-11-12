@@ -39,7 +39,7 @@ public class DriverResource {
   }
 
   @GetMapping("/children")
-  public ResponseEntity<List<ChildDTO>> findMyChildren() throws Exception {
+  public ResponseEntity<List<ChildDTO>> findMyChildren() {
     final List<ChildDTO> childDTO = driverService.findMyChildren();
     return ResponseEntity.ok(childDTO);
   }

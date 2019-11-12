@@ -3,6 +3,8 @@ package com.cade.cadeonibus.dto;
 import com.cade.cadeonibus.dto.dao.DriverDAO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
@@ -20,7 +22,7 @@ public class DriverDTO {
   private Long userId;
   private String code;
 
-  public DriverDTO(UserRegisterDTO userRegisterDTO, Long userId) throws NoSuchAlgorithmException {
+  public DriverDTO(UserRegisterDTO userRegisterDTO, Long userId) {
     this.name = userRegisterDTO.getName();
     this.nickname = userRegisterDTO.getNickname();
     this.email = userRegisterDTO.getEmail();
@@ -28,7 +30,13 @@ public class DriverDTO {
     this.cpf = userRegisterDTO.getCpf();
     this.userId = userId;
 
-    MessageDigest md = MessageDigest.getInstance("MD5");
+    MessageDigest md = null;
+    try {
+      md = MessageDigest.getInstance("MD5");
+    } catch (NoSuchAlgorithmException e) {
+      throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Nao possivel criar o MD5 do motorista");
+    }
+
     md.update(userId.toString().getBytes());
     this.code = DatatypeConverter.printHexBinary(md.digest()).toUpperCase();
   }

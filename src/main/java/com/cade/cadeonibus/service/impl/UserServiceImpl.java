@@ -12,9 +12,11 @@ import com.cade.cadeonibus.service.UserService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 
@@ -44,18 +46,12 @@ public class UserServiceImpl implements UserService {
     }
   }
 
-  public UserResponseDTO findUser() throws Exception {
-    final String email = SecurityUtils.getCurrentUserLogin().orElse(null);
+  public UserResponseDTO findUser() {
+    final String email = SecurityUtils.getCurrentUserLogin()
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário não está logado"));
 
-    if (email == null) {
-      throw new Exception("Nenhum usuario logado");
-    }
-
-    final User user = userRepository.findByLogin(email).orElse(null);
-
-    if (user == null) {
-      throw new Exception("Usuario nao encontrado!");
-    }
+    final User user = userRepository.findByLogin(email)
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
 
     if (user.getPerfis().contains(Perfil.RESPONSIBLE)) {
       final ResponsibleDTO responsible = responsibleService.findByEmail(user.getLogin());
@@ -82,7 +78,8 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void register(UserRegisterDTO userRegisterDTO) throws Exception {
+  public void register(final UserRegisterDTO userRegisterDTO) {
+    canRegister(userRegisterDTO);
     UserDTO userDTO = new UserDTO(userRegisterDTO, passwordEncoder.encode(userRegisterDTO.getPassword()));
     userDTO = save(userDTO);
 
@@ -93,14 +90,25 @@ public class UserServiceImpl implements UserService {
       ResponsibleDTO responsibleDTO = new ResponsibleDTO(userRegisterDTO, userDTO.getId());
       responsibleService.save(responsibleDTO);
     } else {
-      throw new Exception("Usuario sem Tipo");
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário  sem tipo");
     }
   }
 
   @Override
-  public void updateToken(String deviceToken) throws Exception {
-    final String email = SecurityUtils.getCurrentUserLogin().get();
-    User user = userRepository.findByLogin(email).orElseThrow();
+  public void updateToken(String deviceToken) {
+    final String email = SecurityUtils.getCurrentUserLogin().
+      orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário não está logado"));
+
+    User user = userRepository.findByLogin(email)
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuário não encontrado"));
     user.setDeviceToken(deviceToken);
+    userRepository.save(user);
+  }
+
+  private void canRegister(final UserRegisterDTO dto) {
+    final User userFound = userRepository.findByLogin(dto.getEmail()).orElse(null);
+    if (userFound != null) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "E-mail já cadastrado");
+    }
   }
 }

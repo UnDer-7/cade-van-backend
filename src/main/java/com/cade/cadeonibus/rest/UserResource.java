@@ -6,7 +6,8 @@ import com.cade.cadeonibus.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,14 +22,13 @@ public class UserResource {
 
 
   @PostMapping("/register")
-  @ResponseStatus(HttpStatus.CREATED)
-  public void registerAccount(@Valid @RequestBody UserRegisterDTO userRegisterDTO) throws Exception {
+  public void registerAccount(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
     log.info("Rest request to register user : {}", userRegisterDTO);
     userService.register(userRegisterDTO);
   }
 
   @GetMapping("/user-loggedin")
-  public ResponseEntity<UserResponseDTO> findUserLoggedIn() throws Exception {
+  public ResponseEntity<UserResponseDTO> findUserLoggedIn() {
     final UserResponseDTO dto = userService.findUser();
     return ResponseEntity.ok(dto);
   }
@@ -40,7 +40,10 @@ public class UserResource {
   }
 
   @PostMapping("/device-token")
-  public void updateToken(@RequestBody String deviceToken) throws Exception {
-    userService.updateToken(deviceToken);
+  public void updateToken(@RequestBody String deviceToken) throws JSONException {
+    final String token = new JSONObject(deviceToken)
+      .get("deviceToken")
+      .toString();
+    userService.updateToken(token);
   }
 }

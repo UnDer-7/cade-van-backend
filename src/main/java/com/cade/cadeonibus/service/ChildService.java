@@ -6,7 +6,7 @@ import com.cade.cadeonibus.dto.ChildStatusDTO;
 import java.util.List;
 
 public interface ChildService {
-  List<ChildDTO> findAll() throws Exception;
+  List<ChildDTO> findAll();
 
   ChildDTO getOne(Long id);
 

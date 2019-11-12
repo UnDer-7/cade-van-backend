@@ -16,7 +16,9 @@ import com.cade.cadeonibus.service.ResponsibleService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -66,8 +68,10 @@ public class DriverServiceImpl implements DriverService {
   }
 
   @Override
-  public List<ChildDTO> findMyChildren() throws Exception {
-    final String login = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new Exception("Nenhum usuario logado"));
+  public List<ChildDTO> findMyChildren() {
+    final String login = SecurityUtils.getCurrentUserLogin()
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário não está logado"));
+
     final Driver driver = driverRepository.findByEmail(login);
     final List<Child> child = childRepository.findAllByDriverId(driver.getId());
     return childMapper.toDTO(child);

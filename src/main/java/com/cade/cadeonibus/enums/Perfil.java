@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 @AllArgsConstructor
 public enum Perfil {
@@ -19,7 +21,7 @@ public enum Perfil {
   private String descricao;
 
   @JsonCreator
-  public static Perfil fromValue(final String value) throws Exception {
+  public static Perfil fromValue(final String value) {
     if (value.equalsIgnoreCase("driver")) {
       return Perfil.DRIVER;
     }
@@ -28,7 +30,7 @@ public enum Perfil {
       return Perfil.RESPONSIBLE;
     }
 
-    throw new Exception("Perfil: " + value + " Nao encontrado");
+    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Perfil: " + value + " Nao encontrado");
   }
 
   public static Perfil toEnum(Integer cod) {
@@ -39,5 +41,6 @@ public enum Perfil {
     }
 
     throw new IllegalArgumentException("Código de perfil inválido " + cod);
+
   }
 }

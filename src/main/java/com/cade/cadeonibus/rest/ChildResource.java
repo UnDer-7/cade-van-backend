@@ -30,7 +30,7 @@ public class ChildResource {
   }
 
   @GetMapping
-  public ResponseEntity<List<ChildDTO>> findAll() throws Exception {
+  public ResponseEntity<List<ChildDTO>> findAll() {
     log.debug("REST request to get all children");
 
     List<ChildDTO> childList = childService.findAll();

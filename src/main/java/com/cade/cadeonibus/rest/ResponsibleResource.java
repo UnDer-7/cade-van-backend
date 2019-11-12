@@ -45,7 +45,7 @@ public class ResponsibleResource {
   }
 
   @GetMapping("/my-drivers")
-  public ResponseEntity<List<DriverDTO>> getMyDrivers() throws Exception {
+  public ResponseEntity<List<DriverDTO>> getMyDrivers() {
     List<DriverDTO> dto = responsibleService.findMyDrivers();
     return ResponseEntity.ok(dto);
   }
