@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   private static final String[] PUBLIC_MATCHERS = {
     "/api/user/register",
+    //TODO REMOVER ESSA LINHA
     "/api/chat/**",
     "/app/**",
     "/ws"
