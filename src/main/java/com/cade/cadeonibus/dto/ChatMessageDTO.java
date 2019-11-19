@@ -1,16 +1,13 @@
 package com.cade.cadeonibus.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class ChatMessageDTO extends BaseAbstractDTO {
-
   private Long userId;
   private Long chatId;
   private String text;

@@ -68,6 +68,12 @@ public class DriverServiceImpl implements DriverService {
   }
 
   @Override
+  public DriverDTO findOne(final long id) {
+    final Driver drive = driverRepository.getOne(id);
+    return driverMapper.toDTO(drive);
+  }
+
+  @Override
   public List<ChildDTO> findMyChildren() {
     final String login = SecurityUtils.getCurrentUserLogin()
       .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário não está logado"));

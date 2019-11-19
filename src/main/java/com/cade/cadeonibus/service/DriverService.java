@@ -14,5 +14,7 @@ public interface DriverService {
 
   DriverDTO findResponsibleDriver(final long responsibleId, final long driverId);
 
+  DriverDTO findOne(final long id);
+
   List<ChildDTO> findMyChildren();
 }
