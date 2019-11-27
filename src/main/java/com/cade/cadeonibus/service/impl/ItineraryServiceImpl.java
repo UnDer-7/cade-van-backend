@@ -14,6 +14,7 @@ import com.cade.cadeonibus.repository.ItineraryChildRepository;
 import com.cade.cadeonibus.repository.ItineraryRepository;
 import com.cade.cadeonibus.security.SecurityUtils;
 import com.cade.cadeonibus.service.ItineraryService;
+import com.cade.cadeonibus.service.NotificationService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -38,6 +40,8 @@ public class ItineraryServiceImpl implements ItineraryService {
 
   private final ItineraryMapper itineraryMapper;
   private final ItineraryChildMapper itineraryChildMapper;
+
+  private final NotificationService notificationService;
 
   @Override
   public void save(ItineraryDTO itineraryDTO) {
@@ -74,6 +78,8 @@ public class ItineraryServiceImpl implements ItineraryService {
       .map(ItineraryChild::getChild)
       .peek(item -> item.setStatus(ChildStatus.WAITING))
       .forEach(childRepository::save);
+
+    sendItineraryNotification(true, itineraryId);
   }
 
   @Override
@@ -82,6 +88,23 @@ public class ItineraryServiceImpl implements ItineraryService {
       .stream()
       .peek(item -> item.setAtivo(false))
       .forEach(itineraryRepository::save);
+
+    sendItineraryNotification(false, itineraryId);
+  }
+
+  private void sendItineraryNotification(Boolean start, Long itineraryId) {
+    String message = start
+      ? "O transportador acabou de iniciar o itinerário!"
+      : "O transportador acabou de finalizar o itinerário";
+
+    List<String> tokens = itineraryChildRepository.findAllByItineraryId(itineraryId)
+      .stream()
+      .map(it -> it.getChild().getResponsible().getUser().getDeviceToken())
+      .collect(Collectors.toList());
+
+    String driverName = itineraryRepository.getOne(itineraryId).getDriver().getName();
+
+    tokens.forEach(token -> notificationService.sendNotification(driverName, message, token));
   }
 
   @Override
