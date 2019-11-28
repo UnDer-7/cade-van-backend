@@ -13,6 +13,8 @@ public interface DriverService {
 
   DriverDTO findByEmail(final String email);
 
+  String findCode();
+
   DriverDTO findResponsibleDriver(final long responsibleId, final long driverId);
 
   DriverDTO findOne(final long id);
