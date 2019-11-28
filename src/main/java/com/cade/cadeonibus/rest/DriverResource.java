@@ -3,6 +3,7 @@ package com.cade.cadeonibus.rest;
 import com.cade.cadeonibus.dto.ChildDTO;
 import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ItineraryDTO;
+import com.cade.cadeonibus.dto.ResponsibleDTO;
 import com.cade.cadeonibus.service.DriverService;
 import com.cade.cadeonibus.service.ItineraryService;
 import lombok.AllArgsConstructor;
@@ -37,6 +38,13 @@ public class DriverResource {
     final DriverDTO dto = driverService.findResponsibleDriver(responsibleId, driverId);
     return ResponseEntity.ok(dto);
   }
+
+  @GetMapping("/my-responsibles/{driverId}")
+  public ResponseEntity<List<ResponsibleDTO>> findResponsibles(@PathVariable Long driverId) {
+    final List<ResponsibleDTO> responsibleList = driverService.findAllResponsibles(driverId);
+    return ResponseEntity.ok(responsibleList);
+  }
+
 
   @GetMapping("/children")
   public ResponseEntity<List<ChildDTO>> findMyChildren() {

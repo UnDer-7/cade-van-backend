@@ -2,12 +2,14 @@ package com.cade.cadeonibus.service.impl;
 
 import com.cade.cadeonibus.domain.Child;
 import com.cade.cadeonibus.domain.Driver;
+import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.dto.ChildDTO;
 import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
 import com.cade.cadeonibus.dto.dao.DriverDAO;
 import com.cade.cadeonibus.dto.mapper.ChildMapper;
 import com.cade.cadeonibus.dto.mapper.DriverMapper;
+import com.cade.cadeonibus.dto.mapper.ResponsibleMapper;
 import com.cade.cadeonibus.repository.ChildRepository;
 import com.cade.cadeonibus.repository.DriverRepository;
 import com.cade.cadeonibus.security.SecurityUtils;
@@ -35,6 +37,7 @@ public class DriverServiceImpl implements DriverService {
 
   private final ResponsibleService responsibleService;
 
+  private final ResponsibleMapper responsibleMapper;
   private final DriverMapper driverMapper;
   private final ChildMapper childMapper;
 
@@ -81,5 +84,15 @@ public class DriverServiceImpl implements DriverService {
     final Driver driver = driverRepository.findByEmail(login);
     final List<Child> child = childRepository.findAllByDriverId(driver.getId());
     return childMapper.toDTO(child);
+  }
+
+  @Override
+  public List<ResponsibleDTO> findAllResponsibles(Long driverId) {
+    final List<Responsible> responsibleList = childRepository.findAllByDriverId(driverId)
+      .stream()
+      .map(Child::getResponsible)
+      .collect(Collectors.toList());
+
+    return responsibleMapper.toDTO(responsibleList);
   }
 }
