@@ -20,9 +20,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/driver")
 public class DriverResource {
-
-  private final Logger log = LoggerFactory.getLogger(DriverResource.class);
-
   private final DriverService driverService;
   private final ItineraryService itineraryService;
 
@@ -30,6 +27,12 @@ public class DriverResource {
   public ResponseEntity<List<DriverDTO>> findAll() {
     List<DriverDTO> drivers = driverService.findAll();
     return ResponseEntity.ok(drivers);
+  }
+
+  @GetMapping("/code")
+  public ResponseEntity<String> findMyCode() {
+    final String code = driverService.findCode();
+    return ResponseEntity.ok(code);
   }
 
   @GetMapping("/my-drivers/{responsibleId}/{driverId}")

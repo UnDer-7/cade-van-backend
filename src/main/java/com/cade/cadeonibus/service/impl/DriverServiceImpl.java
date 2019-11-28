@@ -2,6 +2,7 @@ package com.cade.cadeonibus.service.impl;
 
 import com.cade.cadeonibus.domain.Child;
 import com.cade.cadeonibus.domain.Driver;
+import com.cade.cadeonibus.domain.User;
 import com.cade.cadeonibus.dto.ChildDTO;
 import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
@@ -53,6 +54,13 @@ public class DriverServiceImpl implements DriverService {
       .stream().map(child -> child.getDriver().getId()).collect(Collectors.toList());
     List<Driver> drivers = driverRepository.findAllByIdIn(driverIds);
     return driverMapper.toDTO(drivers);
+  }
+
+  @Override
+  public String findCode() {
+    final String email = SecurityUtils.getCurrentUserLogin()
+      .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário não está logado"));
+    return driverRepository.findByEmail(email).getCode();
   }
 
   @Override

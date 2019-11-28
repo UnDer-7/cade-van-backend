@@ -18,7 +18,6 @@ public class LocationController {
   @SendTo("/topic/location/{driverId}")
   public DriverLocationDTO fleetLocation(@DestinationVariable final long driverId,
                                          @Payload final DriverLocationDTO payload) {
-    locationService.sendNotification(payload);
     return payload;
   }
 }
