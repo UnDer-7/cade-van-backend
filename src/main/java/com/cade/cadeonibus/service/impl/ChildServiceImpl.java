@@ -99,7 +99,7 @@ public class ChildServiceImpl implements ChildService {
 
   private void sendNotification(Child child) {
     UserResponseDTO user = userService.findByLogin(child.getDriver().getEmail());
-    UserDTO userDTO = userService.findOne(user.getId());
+    UserDTO userDTO = userService.findOne(user.getUserId());
 
     Notification notification = new Notification(child.getName(), getNotificationBody(child.getStatus()));
 

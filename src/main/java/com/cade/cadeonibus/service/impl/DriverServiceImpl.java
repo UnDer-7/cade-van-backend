@@ -2,11 +2,10 @@ package com.cade.cadeonibus.service.impl;
 
 import com.cade.cadeonibus.domain.Child;
 import com.cade.cadeonibus.domain.Driver;
-import com.cade.cadeonibus.domain.Responsible;
-import com.cade.cadeonibus.domain.User;
 import com.cade.cadeonibus.dto.ChildDTO;
 import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
+import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.dto.dao.DriverDAO;
 import com.cade.cadeonibus.dto.mapper.ChildMapper;
 import com.cade.cadeonibus.dto.mapper.DriverMapper;
@@ -96,12 +95,12 @@ public class DriverServiceImpl implements DriverService {
   }
 
   @Override
-  public Set<ResponsibleDTO> findAllResponsibles(Long driverId) {
-    final Set<Responsible> responsibleList = childRepository.findAllByDriverId(driverId)
+  public Set<UserResponseDTO> findAllResponsibles(Long driverId) {
+    return childRepository.findAllByDriverId(driverId)
       .stream()
       .map(Child::getResponsible)
+      .map(responsibleMapper::toDTO)
+      .map(UserResponseDTO::new)
       .collect(Collectors.toSet());
-
-    return responsibleMapper.toDTO(responsibleList);
   }
 }

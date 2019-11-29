@@ -3,12 +3,10 @@ package com.cade.cadeonibus.rest;
 import com.cade.cadeonibus.dto.ChildDTO;
 import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ItineraryDTO;
-import com.cade.cadeonibus.dto.ResponsibleDTO;
+import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.service.DriverService;
 import com.cade.cadeonibus.service.ItineraryService;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,8 +42,8 @@ public class DriverResource {
   }
 
   @GetMapping("/my-responsibles/{driverId}")
-  public ResponseEntity<Set<ResponsibleDTO>> findResponsibles(@PathVariable Long driverId) {
-    final Set<ResponsibleDTO> responsibleList = driverService.findAllResponsibles(driverId);
+  public ResponseEntity<Set<UserResponseDTO>> findResponsibles(@PathVariable Long driverId) {
+    final Set<UserResponseDTO> responsibleList = driverService.findAllResponsibles(driverId);
     return ResponseEntity.ok(responsibleList);
   }
 

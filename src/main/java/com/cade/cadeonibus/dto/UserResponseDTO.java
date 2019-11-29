@@ -1,7 +1,5 @@
 package com.cade.cadeonibus.dto;
 
-import com.cade.cadeonibus.domain.Driver;
-import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.enums.Perfil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class UserResponseDTO {
-  private Long id;
+  private Long userId;
+  private Long responsibleId;
+  private Long driverId;
   private String name;
   private String nickname;
   private String email;
@@ -18,35 +18,18 @@ public class UserResponseDTO {
   private String code;
   private Perfil perfil;
 
-  public UserResponseDTO(final Responsible responsible) {
-    this.id = responsible.getId();
-    this.name = responsible.getName();
-    this.email = responsible.getEmail();
-    this.phone = responsible.getPhone();
-    this.perfil = Perfil.RESPONSIBLE;
-  }
-
   public UserResponseDTO(final ResponsibleDTO responsible) {
-    this.id = responsible.getId();
+    this.userId = responsible.getUserId();
+    this.responsibleId = responsible.getId();
     this.name = responsible.getName();
     this.email = responsible.getEmail();
     this.phone = responsible.getPhone();
     this.perfil = Perfil.RESPONSIBLE;
-  }
-
-  public UserResponseDTO(final Driver driver) {
-    this.id = driver.getId();
-    this.name = driver.getName();
-    this.nickname = driver.getNickname();
-    this.email = driver.getEmail();
-    this.phone = driver.getPhone();
-    this.cpf = driver.getCpf();
-    this.code = driver.getCode();
-    this.perfil = Perfil.DRIVER;
   }
 
   public UserResponseDTO(final DriverDTO driver) {
-    this.id = driver.getId();
+    this.userId = driver.getUserId();
+    this.driverId = driver.getId();
     this.name = driver.getName();
     this.nickname = driver.getNickname();
     this.email = driver.getEmail();
