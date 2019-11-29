@@ -82,7 +82,7 @@ public class ResponsibleServiceImpl implements ResponsibleService {
     return children
       .stream()
       .map(Child::getDriver)
-      .collect(Collectors.toUnmodifiableList())
+      .collect(Collectors.toSet())
       .stream()
       .map(Driver::getId)
       .map(driverRepository::findById)
