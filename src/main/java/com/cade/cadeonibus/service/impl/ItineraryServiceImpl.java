@@ -25,6 +25,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -97,10 +98,10 @@ public class ItineraryServiceImpl implements ItineraryService {
       ? "O transportador acabou de iniciar o itinerário!"
       : "O transportador acabou de finalizar o itinerário";
 
-    List<String> tokens = itineraryChildRepository.findAllByItineraryId(itineraryId)
+    Set<String> tokens = itineraryChildRepository.findAllByItineraryId(itineraryId)
       .stream()
       .map(it -> it.getChild().getResponsible().getUser().getDeviceToken())
-      .collect(Collectors.toList());
+      .collect(Collectors.toSet());
 
     String driverName = itineraryRepository.getOne(itineraryId).getDriver().getName();
 

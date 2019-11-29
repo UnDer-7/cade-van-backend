@@ -25,6 +25,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -95,11 +96,11 @@ public class DriverServiceImpl implements DriverService {
   }
 
   @Override
-  public List<ResponsibleDTO> findAllResponsibles(Long driverId) {
-    final List<Responsible> responsibleList = childRepository.findAllByDriverId(driverId)
+  public Set<ResponsibleDTO> findAllResponsibles(Long driverId) {
+    final Set<Responsible> responsibleList = childRepository.findAllByDriverId(driverId)
       .stream()
       .map(Child::getResponsible)
-      .collect(Collectors.toList());
+      .collect(Collectors.toSet());
 
     return responsibleMapper.toDTO(responsibleList);
   }

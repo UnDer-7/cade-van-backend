@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -43,8 +44,8 @@ public class DriverResource {
   }
 
   @GetMapping("/my-responsibles/{driverId}")
-  public ResponseEntity<List<ResponsibleDTO>> findResponsibles(@PathVariable Long driverId) {
-    final List<ResponsibleDTO> responsibleList = driverService.findAllResponsibles(driverId);
+  public ResponseEntity<Set<ResponsibleDTO>> findResponsibles(@PathVariable Long driverId) {
+    final Set<ResponsibleDTO> responsibleList = driverService.findAllResponsibles(driverId);
     return ResponseEntity.ok(responsibleList);
   }
 

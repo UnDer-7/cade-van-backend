@@ -5,6 +5,7 @@ import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
 
 import java.util.List;
+import java.util.Set;
 
 public interface DriverService {
   DriverDTO save(DriverDTO driverDTO);
@@ -21,5 +22,5 @@ public interface DriverService {
 
   List<ChildDTO> findMyChildren();
 
-  List<ResponsibleDTO> findAllResponsibles(Long driverId);
+  Set<ResponsibleDTO> findAllResponsibles(Long driverId);
 }
