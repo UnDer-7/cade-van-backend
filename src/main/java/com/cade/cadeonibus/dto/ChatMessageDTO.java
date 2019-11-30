@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class ChatMessageDTO extends BaseAbstractDTO {
   private Long userId;
+  private String userName;
   private Long chatId;
   private String text;
   private LocalDateTime createdAt;
