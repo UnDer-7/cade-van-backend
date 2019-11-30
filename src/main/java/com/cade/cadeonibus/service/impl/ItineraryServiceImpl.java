@@ -5,6 +5,7 @@ import com.cade.cadeonibus.domain.Itinerary;
 import com.cade.cadeonibus.domain.ItineraryChild;
 import com.cade.cadeonibus.dto.ItineraryChildDTO;
 import com.cade.cadeonibus.dto.ItineraryDTO;
+import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.dto.mapper.ItineraryChildMapper;
 import com.cade.cadeonibus.dto.mapper.ItineraryMapper;
 import com.cade.cadeonibus.enums.ChildStatus;
@@ -117,6 +118,11 @@ public class ItineraryServiceImpl implements ItineraryService {
     final List<ItineraryDTO> itineraryDTO =
       new ArrayList<>(itineraryMapper.toDTO(itineraryRepository.findAllByDriverEmail(login)));
     itineraryDTO.forEach(item -> item.setItineraryChildren(itineraryChildMapper.toDTO(itineraryChildRepository.findAllByItineraryId(item.getId()))));
+    itineraryDTO.forEach(itinerary ->
+      itinerary.getItineraryChildren().forEach(itineraryChild -> {
+        itineraryChild.getChild().setUserResponse(new UserResponseDTO(itineraryChild.getChild().getResponsible()));
+      })
+    );
     return itineraryDTO;
   }
 
