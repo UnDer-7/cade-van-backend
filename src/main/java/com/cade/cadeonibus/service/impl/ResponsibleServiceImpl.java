@@ -5,6 +5,7 @@ import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
+import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.dto.mapper.DriverMapper;
 import com.cade.cadeonibus.dto.mapper.ResponsibleMapper;
 import com.cade.cadeonibus.repository.ChildRepository;
@@ -70,7 +71,7 @@ public class ResponsibleServiceImpl implements ResponsibleService {
   }
 
   @Override
-  public List<DriverDTO> findMyDrivers() {
+  public List<UserResponseDTO> findMyDrivers() {
     final String login = SecurityUtils.getCurrentUserLogin()
       .orElseThrow(() -> new ResponseStatusException(HttpStatus.FORBIDDEN, "Usuário não está logado"));
 
@@ -88,6 +89,7 @@ public class ResponsibleServiceImpl implements ResponsibleService {
       .map(driverRepository::findById)
       .map(Optional::orElseThrow)
       .map(driverMapper::toDTO)
+      .map(UserResponseDTO::new)
       .collect(Collectors.toUnmodifiableList());
   }
 }

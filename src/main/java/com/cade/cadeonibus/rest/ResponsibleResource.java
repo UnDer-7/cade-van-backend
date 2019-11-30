@@ -2,6 +2,7 @@ package com.cade.cadeonibus.rest;
 
 import com.cade.cadeonibus.dto.DriverDTO;
 import com.cade.cadeonibus.dto.ResponsibleDTO;
+import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.service.ResponsibleService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -45,8 +46,8 @@ public class ResponsibleResource {
   }
 
   @GetMapping("/my-drivers")
-  public ResponseEntity<List<DriverDTO>> getMyDrivers() {
-    List<DriverDTO> dto = responsibleService.findMyDrivers();
+  public ResponseEntity<List<UserResponseDTO>> getMyDrivers() {
+    final List<UserResponseDTO> dto = responsibleService.findMyDrivers();
     return ResponseEntity.ok(dto);
   }
 }
