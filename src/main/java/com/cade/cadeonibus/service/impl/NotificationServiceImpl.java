@@ -1,6 +1,8 @@
 package com.cade.cadeonibus.service.impl;
 
 import com.cade.cadeonibus.service.NotificationService;
+import com.google.firebase.messaging.AndroidConfig;
+import com.google.firebase.messaging.AndroidNotification;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
@@ -20,6 +22,11 @@ public class NotificationServiceImpl implements NotificationService {
     final Message message = Message.builder()
       .setNotification(notification)
       .setToken(token)
+      .setAndroidConfig(AndroidConfig.builder()
+        .setNotification(AndroidNotification.builder()
+          .setColor("#f45342")
+          .build())
+        .build())
       .build();
 
     try {
