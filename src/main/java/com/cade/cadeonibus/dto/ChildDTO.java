@@ -31,8 +31,6 @@ public class ChildDTO extends BaseAbstractDTO {
 
   private ResponsibleDTO responsible;
 
-  private UserResponseDTO userResponse;
-
   private String driverCode;
 
   private Long driverId;
