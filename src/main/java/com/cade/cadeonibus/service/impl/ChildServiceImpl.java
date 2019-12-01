@@ -5,6 +5,7 @@ import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.domain.ItineraryChild;
 import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.dto.ChildDTO;
+import com.cade.cadeonibus.dto.ResponsibleDTO;
 import com.cade.cadeonibus.dto.UserDTO;
 import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.dto.mapper.ChildMapper;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -57,7 +59,8 @@ public class ChildServiceImpl implements ChildService {
       return childMapper.toDTO(children);
     }
     final List<Child> children = childRepository.findAllByResponsibleEmail(user.getEmail());
-    return childMapper.toDTO(children);
+    final List<ChildDTO> dtos = childMapper.toDTO(children);
+    return dtos;
   }
 
   @Override
@@ -94,7 +97,8 @@ public class ChildServiceImpl implements ChildService {
       e.printStackTrace();
     }
 
-    return childMapper.toDTO(childSaved);
+    final ChildDTO dto = childMapper.toDTO(childSaved);
+    return dto;
   }
 
   private void sendNotification(Child child) {

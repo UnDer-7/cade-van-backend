@@ -22,4 +22,12 @@ public class ResponsibleDTO extends BaseAbstractDTO {
     this.phone = userRegisterDTO.getPhone();
     this.userId = userId;
   }
+
+  public ResponsibleDTO(final UserResponseDTO dto) {
+    this.id = dto.getResponsibleId();
+    this.name = dto.getName();
+    this.email = dto.getEmail();
+    this.phone = dto.getPhone();
+    this.userId = dto.getUserId();
+  }
 }

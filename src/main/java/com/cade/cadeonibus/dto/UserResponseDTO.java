@@ -4,9 +4,13 @@ import com.cade.cadeonibus.enums.Perfil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
-public class UserResponseDTO {
+public class UserResponseDTO implements Serializable {
+  private static final long serialVersionUID = 5904748469840948998L;
+
   private Long userId;
   private Long responsibleId;
   private Long driverId;
