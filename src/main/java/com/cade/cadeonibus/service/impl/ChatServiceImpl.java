@@ -90,7 +90,7 @@ public class ChatServiceImpl implements ChatService {
   }
 
   @Override
-  public List<Long> getAllChatIds(Long userId) {
+  public List<Long> getAllChatIds() {
     return findAll()
       .stream()
       .map(ChatDTO::getId)

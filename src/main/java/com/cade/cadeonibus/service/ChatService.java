@@ -18,5 +18,5 @@ public interface ChatService {
 
   void sendNotification(final ChatMessageDTO chatMessage);
 
-  List<Long> getAllChatIds(Long userId);
+  List<Long> getAllChatIds();
 }
