@@ -5,7 +5,6 @@ import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.domain.ItineraryChild;
 import com.cade.cadeonibus.domain.Responsible;
 import com.cade.cadeonibus.dto.ChildDTO;
-import com.cade.cadeonibus.dto.ResponsibleDTO;
 import com.cade.cadeonibus.dto.UserDTO;
 import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.dto.mapper.ChildMapper;
@@ -29,7 +28,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -75,7 +73,8 @@ public class ChildServiceImpl implements ChildService {
   public void save(ChildDTO dto) {
     log.debug("Request to save Child -> {}", dto);
 
-    final Driver driver = driverRepository.findByCode(dto.getDriverCode());
+    Driver driver = driverRepository.findByCode(dto.getDriverCode());
+    if (driver == null) driver = driverRepository.getOne(dto.getDriverId());
     final String email = SecurityUtils.getCurrentUserLogin().orElse(null);
     final Responsible responsible = responsibleRepository.findByEmail(email);
     final Child child = childMapper.toEntity(dto);
