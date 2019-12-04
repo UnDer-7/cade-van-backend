@@ -7,7 +7,13 @@ import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -26,6 +32,13 @@ public class ChatResource {
     log.debug("REST request to get all chatMessages");
     ChatDTO chat = chatService.getOne(driverId, responsibleId);
     return utilResponses.successResponse(chat);
+  }
+
+  @GetMapping("/user/{userId}")
+  public ResponseEntity<List<Long>> getOne(@PathVariable("userId") Long userId) {
+    log.debug("REST request to get all chats");
+    List<Long> chatIds = chatService.getAllChatIds(userId);
+    return ResponseEntity.ok(chatIds);
   }
 
   @GetMapping("/tst")

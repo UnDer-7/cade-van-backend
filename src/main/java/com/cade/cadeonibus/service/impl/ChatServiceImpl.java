@@ -4,7 +4,12 @@ import com.cade.cadeonibus.domain.Chat;
 import com.cade.cadeonibus.domain.ChatMessage;
 import com.cade.cadeonibus.domain.Driver;
 import com.cade.cadeonibus.domain.Responsible;
-import com.cade.cadeonibus.dto.*;
+import com.cade.cadeonibus.dto.ChatDTO;
+import com.cade.cadeonibus.dto.ChatMessageDTO;
+import com.cade.cadeonibus.dto.DriverDTO;
+import com.cade.cadeonibus.dto.ResponsibleDTO;
+import com.cade.cadeonibus.dto.UserDTO;
+import com.cade.cadeonibus.dto.UserResponseDTO;
 import com.cade.cadeonibus.dto.mapper.ChatMapper;
 import com.cade.cadeonibus.dto.mapper.ChatMessageMapper;
 import com.cade.cadeonibus.dto.mapper.DriverMapper;
@@ -26,6 +31,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -81,6 +87,14 @@ public class ChatServiceImpl implements ChatService {
     } else {
       handleDriverNotification(user, chatMessage);
     }
+  }
+
+  @Override
+  public List<Long> getAllChatIds(Long userId) {
+    return findAll()
+      .stream()
+      .map(ChatDTO::getId)
+      .collect(Collectors.toList());
   }
 
   @Override

@@ -17,4 +17,6 @@ public interface ChatService {
   void saveMessage(ChatMessageDTO chatMessageDTO);
 
   void sendNotification(final ChatMessageDTO chatMessage);
+
+  List<Long> getAllChatIds(Long userId);
 }
