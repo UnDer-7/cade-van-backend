@@ -110,9 +110,10 @@ public class ChatServiceImpl implements ChatService {
   }
 
   @Override
-  public void saveMessage(ChatMessageDTO chatMessageDTO) {
+  public ChatMessageDTO saveMessage(ChatMessageDTO chatMessageDTO) {
     ChatMessage chatMessage = chatMessageMapper.toEntity(chatMessageDTO);
-    chatMessageRepository.save(chatMessage);
+    final ChatMessage message = chatMessageRepository.save(chatMessage);
+    return chatMessageMapper.toDTO(message);
   }
 
   private void handleResponsibleNotification(final UserDTO user, final ChatMessageDTO chatMessage) {

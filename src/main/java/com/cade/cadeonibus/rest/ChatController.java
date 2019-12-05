@@ -22,9 +22,9 @@ public class ChatController {
   public ChatMessageDTO sendMessage(@DestinationVariable("chatId") Long chatId, @Payload final ChatMessageDTO chatMessage) {
     chatMessage.setCreatedAt(LocalDateTime.now(ZoneId.of("America/Sao_Paulo")));
 
-    chatService.saveMessage(chatMessage);
+    final ChatMessageDTO message = chatService.saveMessage(chatMessage);
     chatService.sendNotification(chatMessage);
 
-    return chatMessage;
+    return message;
   }
 }

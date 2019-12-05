@@ -14,7 +14,7 @@ public interface ChatService {
 
   ChatDTO getOneByChatIAndDriverId(Long chatId, Long driverId);
 
-  void saveMessage(ChatMessageDTO chatMessageDTO);
+  ChatMessageDTO saveMessage(ChatMessageDTO chatMessageDTO);
 
   void sendNotification(final ChatMessageDTO chatMessage);
 
